@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments & Collections – MEDI TRACK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="brand-titles">
+          <h2 style="font-size:1.15rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+          <span style="font-size:0.68rem;">Hospital Management</span>
+        </div>
+      </div>
+      <div class="sidebar-user-card" id="portal-user-meta"></div>
+      <ul class="sidebar-nav">
+        <li><a href="/dashboard" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="/patients" class="sidebar-link"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li><a href="/doctors" class="sidebar-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+        <li><a href="/appointments" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="/consultations" class="sidebar-link"><i class="fa-solid fa-stethoscope"></i> Consultations</a></li>
+        <li><a href="/prescriptions" class="sidebar-link"><i class="fa-solid fa-prescription"></i> Prescriptions</a></li>
+        <li><a href="/medicines" class="sidebar-link"><i class="fa-solid fa-pills"></i> Medicine Master</a></li>
+        <li><a href="/invoices" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a></li>
+        <li><a href="/payments" class="sidebar-link active"><i class="fa-solid fa-credit-card"></i> Payments</a></li>
+        <li><a href="/analytics" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+        <li><a href="/reports" class="sidebar-link"><i class="fa-solid fa-file-lines"></i> Reports & Export</a></li>
+        <li style="margin-top:auto; padding-top:16px; border-top:1px solid #E2E8F0;">
+          <a href="#" onclick="App.logout(); return false;" class="sidebar-link" style="color:#E11D48;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="portal-main-content">
+      <header class="portal-topbar">
+        <div>
+          <h2 style="font-size:1.25rem; color:#0A3871; margin:0;">Collections & Payment Transactions Log</h2>
+          <span style="font-size:0.8rem; color:#64748B;">UPI / QR, POS Credit Cards, NetBanking & Cash Receipts</span>
+        </div>
+      </header>
+
+      <div class="portal-page-body">
+        <div class="card">
+          <div class="card-header">
+            <h3>Settled Transactions</h3>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Receipt No.</th>
+                    <th>Payment Date</th>
+                    <th>Patient Name (UHID)</th>
+                    <th>Payment Mode</th>
+                    <th>Bank / UPI Reference</th>
+                    <th>Amount Paid (₹)</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="pay-table-body">
+                  <tr><td colspan="7" style="text-align:center; padding:24px;">Loading payment logs...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const payments = await API.getPayments();
+        const tbody = document.getElementById("pay-table-body");
+        if (payments.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px;">No payment records found.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = payments.map(p => `
+          <tr>
+            <td><strong style="color:#0A3871;">${p.receipt_no}</strong></td>
+            <td>${p.payment_date}</td>
+            <td>
+              <div style="font-weight:700;">${p.patient_name}</div>
+              <div style="font-size:0.75rem; color:#64748B;">${p.patient_uhid}</div>
+            </td>
+            <td><span class="badge badge-info">${p.payment_mode}</span></td>
+            <td><code>${p.transaction_reference}</code></td>
+            <td><strong style="color:#059669; font-size:1rem;">₹${p.amount_paid.toFixed(2)}</strong></td>
+            <td><span class="badge badge-success">${p.status}</span></td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error("Payments load error:", err);
+      }
+    });
+  </script>
+</body>
+</html>

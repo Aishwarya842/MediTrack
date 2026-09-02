@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Analytics – MEDI TRACK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="brand-titles">
+          <h2 style="font-size:1.15rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+          <span style="font-size:0.68rem;">Hospital Management</span>
+        </div>
+      </div>
+      <div class="sidebar-user-card" id="portal-user-meta"></div>
+      <ul class="sidebar-nav">
+        <li><a href="/dashboard" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="/patients" class="sidebar-link"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li><a href="/doctors" class="sidebar-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+        <li><a href="/appointments" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="/consultations" class="sidebar-link"><i class="fa-solid fa-stethoscope"></i> Consultations</a></li>
+        <li><a href="/prescriptions" class="sidebar-link"><i class="fa-solid fa-prescription"></i> Prescriptions</a></li>
+        <li><a href="/medicines" class="sidebar-link"><i class="fa-solid fa-pills"></i> Medicine Master</a></li>
+        <li><a href="/invoices" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a></li>
+        <li><a href="/payments" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Payments</a></li>
+        <li><a href="/analytics" class="sidebar-link active"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+        <li><a href="/reports" class="sidebar-link"><i class="fa-solid fa-file-lines"></i> Reports & Export</a></li>
+        <li style="margin-top:auto; padding-top:16px; border-top:1px solid #E2E8F0;">
+          <a href="#" onclick="App.logout(); return false;" class="sidebar-link" style="color:#E11D48;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="portal-main-content">
+      <header class="portal-topbar">
+        <div>
+          <h2 style="font-size:1.25rem; color:#0A3871; margin:0;">Clinical & Financial Healthcare Analytics</h2>
+          <span style="font-size:0.8rem; color:#64748B;">Comprehensive Operational Metrics & KPI Visualizations</span>
+        </div>
+      </header>
+
+      <div class="portal-page-body">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-bottom:28px;">
+          <div class="card" style="margin:0;">
+            <div class="card-header">
+              <h3>Monthly Patient OPD Footfall</h3>
+            </div>
+            <div class="card-body">
+              <canvas id="anaPatientChart" height="150"></canvas>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card-header">
+              <h3>Monthly Hospital Revenue Trend (₹ Lakhs)</h3>
+            </div>
+            <div class="card-body">
+              <canvas id="anaRevChart" height="150"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap:24px;">
+          <div class="card" style="margin:0;">
+            <div class="card-header">
+              <h3>Specialty Department Distribution</h3>
+            </div>
+            <div class="card-body">
+              <canvas id="anaDeptChart" height="140"></canvas>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card-header">
+              <h3>Key Performance Metrics</h3>
+            </div>
+            <div class="card-body" style="padding:16px 24px;">
+              <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #E2E8F0;">
+                <span>Bed Occupancy Rate:</span>
+                <strong style="color:#0A3871;">84.6%</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #E2E8F0;">
+                <span>Average OPD Wait Time:</span>
+                <strong style="color:#059669;">14.2 Mins</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #E2E8F0;">
+                <span>Prescription Fulfilment Rate:</span>
+                <strong style="color:#0284C7;">98.8%</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:12px 0;">
+                <span>Patient Satisfaction Score:</span>
+                <strong style="color:#F59E0B;">4.9 / 5.0 ★</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const analytics = await API.getAnalytics();
+
+        // Monthly Patient Chart
+        new Chart(document.getElementById('anaPatientChart').getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: analytics.monthly_trends.labels,
+            datasets: [{
+              label: 'OPD Patients',
+              data: analytics.monthly_trends.patients,
+              backgroundColor: '#0284C7',
+              borderRadius: 6
+            }]
+          },
+          options: { responsive: true }
+        });
+
+        // Monthly Revenue Chart
+        new Chart(document.getElementById('anaRevChart').getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: analytics.monthly_trends.labels,
+            datasets: [{
+              label: 'Revenue (₹)',
+              data: analytics.monthly_trends.revenue,
+              borderColor: '#059669',
+              backgroundColor: 'rgba(5, 150, 105, 0.1)',
+              fill: true,
+              tension: 0.3
+            }]
+          },
+          options: { responsive: true }
+        });
+
+        // Department workload
+        const deptLabels = Object.keys(analytics.department_workload || {});
+        const deptData = Object.values(analytics.department_workload || {});
+        new Chart(document.getElementById('anaDeptChart').getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: deptLabels,
+            datasets: [{
+              label: 'Consultation Load',
+              data: deptData,
+              backgroundColor: '#0A3871',
+              borderRadius: 6
+            }]
+          },
+          options: { responsive: true, indexAxis: 'y' }
+        });
+      } catch (err) {
+        console.error("Analytics load error:", err);
+      }
+    });
+  </script>
+</body>
+</html>

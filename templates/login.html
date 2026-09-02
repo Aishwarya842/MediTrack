@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – MEDI TRACK Healthcare Management Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body style="background: linear-gradient(135deg, #072246 0%, #0A3871 100%); min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px;">
+
+  <div style="max-width: 460px; width:100%; background:#FFFFFF; border-radius:18px; padding:36px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);">
+    
+    <div style="text-align:center; margin-bottom:28px;">
+      <a href="/" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:12px;">
+        <div class="brand-icon-box" style="width:40px; height:40px; font-size:1.2rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h2 style="font-size:1.4rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+      </a>
+      <p style="color:#64748B; font-size:0.875rem;">Integrated Healthcare & Clinical Portal</p>
+    </div>
+
+    <!-- Quick Role Selector Demo Bar -->
+    <div style="background:#F0F9FF; border:1px solid #BAE6FD; border-radius:10px; padding:12px; margin-bottom:24px; text-align:center;">
+      <span style="display:block; font-size:0.75rem; font-weight:700; color:#0284C7; text-transform:uppercase; margin-bottom:8px; letter-spacing:0.5px;">Quick Test Login (1-Click)</span>
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:6px;">
+        <button type="button" class="btn btn-sm btn-secondary" onclick="fillAndLogin('admin', 'Admin@123')"><i class="fa-solid fa-user-gear"></i> Admin</button>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="fillAndLogin('dr_kavitha', 'Doctor@123')"><i class="fa-solid fa-user-doctor"></i> Doctor</button>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="fillAndLogin('patient_rajesh', 'Patient@123')"><i class="fa-solid fa-hospital-user"></i> Patient</button>
+      </div>
+    </div>
+
+    <form id="login-form" onsubmit="event.preventDefault(); handleUserLogin();">
+      <div class="form-group">
+        <label class="form-label">Username or Email Address</label>
+        <div style="position:relative;">
+          <input type="text" id="login-username" class="form-control" placeholder="e.g. admin or dr_kavitha" required style="padding-left:36px;">
+          <i class="fa-solid fa-user" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#94A3B8;"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Secure Password</label>
+        <div style="position:relative;">
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required style="padding-left:36px;">
+          <i class="fa-solid fa-lock" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#94A3B8;"></i>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; font-size:0.85rem;">
+        <label style="display:flex; align-items:center; gap:6px; color:#64748B; cursor:pointer;">
+          <input type="checkbox" checked> Remember session
+        </label>
+        <a href="#" onclick="alert('For password reset, please contact Hospital IT Helpdesk at ext 404 or admin@meditrack.in'); return false;" style="color:#0284C7; font-weight:600;">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;"><i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal</button>
+    </form>
+
+    <div style="margin-top:24px; text-align:center; border-top:1px solid #E2E8F0; padding-top:16px;">
+      <a href="/" style="color:#64748B; font-size:0.85rem; font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Back to Hospital Homepage</a>
+    </div>
+
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    function fillAndLogin(u, p) {
+      document.getElementById("login-username").value = u;
+      document.getElementById("login-password").value = p;
+      handleUserLogin();
+    }
+
+    async function handleUserLogin() {
+      const u = document.getElementById("login-username").value.trim();
+      const p = document.getElementById("login-password").value;
+
+      try {
+        const res = await API.login(u, p);
+        if (res.success) {
+          API.setAuth(res.token, res.user);
+          window.location.href = "/dashboard";
+        }
+      } catch (err) {
+        alert("Authentication Failed: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>

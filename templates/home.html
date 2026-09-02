@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEDI TRACK – Integrated Patient Care Management System | Chennai</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Top Emergency & Info Banner -->
+  <div class="top-emergency-bar">
+    <div class="top-bar-container">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span class="emergency-tag"><i class="fa-solid fa-truck-medical"></i> 24x7 EMERGENCY: 1066</span>
+        <span style="color:#94A3B8; font-size:0.8rem;">NABH Accredited Tertiary Care Centre | Vadapalani, Chennai</span>
+      </div>
+      <div class="top-info-links">
+        <span class="top-info-item"><i class="fa-solid fa-phone"></i> +91 44 2483 3444</span>
+        <span class="top-info-item"><i class="fa-solid fa-clock"></i> OPD: 08:30 AM - 08:30 PM</span>
+        <a href="/login" style="color:#38BDF8; font-weight:700; font-size:0.85rem;"><i class="fa-solid fa-lock"></i> Staff & Patient Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="/" class="hospital-brand">
+        <div class="brand-icon-box">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <div class="brand-titles">
+          <h1>MEDI TRACK</h1>
+          <span>Patient Care Management</span>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About Us</a></li>
+        <li><a href="#departments" class="nav-link">Departments</a></li>
+        <li><a href="#doctors" class="nav-link">Doctors</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#packages" class="nav-link">Health Packages</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#book-appointment" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book Appointment</a>
+        <a href="/login" class="btn btn-secondary"><i class="fa-solid fa-user-shield"></i> Portal Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-highlights">
+          <span class="hero-tag"><i class="fa-solid fa-award"></i> NABH & NABL Accredited</span>
+          <span class="hero-tag"><i class="fa-solid fa-user-doctor"></i> 45+ Super Specialists</span>
+          <span class="hero-tag"><i class="fa-solid fa-clock"></i> 24x7 Critical Care</span>
+        </div>
+        <h2>Advanced Multispeciality Healthcare with <span>Compassionate Patient Care</span></h2>
+        <p>Combining world-class medical expertise, cutting-edge diagnostic technology, and integrated digital health records to deliver comprehensive care across Chennai.</p>
+        <div style="display:flex; gap:16px;">
+          <a href="#book-appointment" class="btn btn-primary btn-lg"><i class="fa-solid fa-calendar-plus"></i> Book Consultation</a>
+          <a href="#departments" class="btn btn-secondary btn-lg"><i class="fa-solid fa-stethoscope"></i> Explore Specialties</a>
+        </div>
+      </div>
+
+      <!-- Quick Appointment Booking Card -->
+      <div id="book-appointment" class="hero-card-booking">
+        <div class="booking-header">
+          <h3>Quick Appointment Booking</h3>
+          <p>Instant confirmation with automated slot checking</p>
+        </div>
+        <form id="hero-quick-booking-form" onsubmit="event.preventDefault(); handleHeroBooking();">
+          <div class="form-group">
+            <label class="form-label">Select Specialty / Department</label>
+            <select id="hero-dept-select" class="form-control" onchange="filterHeroDoctors()">
+              <option value="Cardiology">Cardiology</option>
+              <option value="Neurology">Neurology</option>
+              <option value="Orthopaedics">Orthopaedics</option>
+              <option value="Nephrology & Urology">Nephrology & Urology</option>
+              <option value="Paediatrics">Paediatrics</option>
+              <option value="Obstetrics & Gynaecology">Obstetrics & Gynaecology</option>
+              <option value="Gastroenterology">Gastroenterology</option>
+              <option value="Pulmonology">Pulmonology</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Select Specialist Doctor</label>
+            <select id="hero-doctor-select" class="form-control">
+              <option value="1">Dr. Kavitha Ramanathan (DM Cardiology - ₹850)</option>
+              <option value="2">Dr. Aravind Krishnan (M.Ch Neuro - ₹950)</option>
+              <option value="3">Dr. Meenakshi Sundaram (MS OB/GYN - ₹750)</option>
+              <option value="4">Dr. Suresh Balaji (MS Ortho - ₹800)</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Appointment Date</label>
+              <input type="date" id="hero-date-input" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Preferred Time Slot</label>
+              <select id="hero-time-select" class="form-control">
+                <option value="09:30 AM">09:30 AM</option>
+                <option value="10:30 AM">10:30 AM</option>
+                <option value="11:30 AM">11:30 AM</option>
+                <option value="05:00 PM">05:00 PM</option>
+                <option value="06:00 PM">06:00 PM</option>
+                <option value="07:00 PM">07:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Patient Full Name & Mobile</label>
+            <div style="display:flex; gap:10px;">
+              <input type="text" id="hero-patient-name" class="form-control" placeholder="Full Name" required>
+              <input type="tel" id="hero-patient-phone" class="form-control" placeholder="+91 98400 00000" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa-solid fa-check-circle"></i> Confirm OPD Appointment</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Counters Banner -->
+  <div class="stats-banner">
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-hospital-user"></i></div>
+      <div class="stat-info">
+        <h3>150,000+</h3>
+        <p>Patients Treated</p>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-user-doctor"></i></div>
+      <div class="stat-info">
+        <h3>45+</h3>
+        <p>Specialist Doctors</p>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-bed-pulse"></i></div>
+      <div class="stat-info">
+        <h3>250+</h3>
+        <p>Hospital Beds & ICUs</p>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="stat-info">
+        <h3>99.4%</h3>
+        <p>Clinical Satisfaction</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Departments Section -->
+  <section id="departments" class="section-wrapper">
+    <div class="section-head">
+      <span class="sub-title">Centres of Clinical Excellence</span>
+      <h2>Specialized Medical Departments</h2>
+      <p>State-of-the-art super-speciality departments equipped with advanced medical infrastructure and renowned clinical consultants.</p>
+    </div>
+
+    <div class="dept-grid">
+      <div class="dept-card">
+        <div class="dept-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h3>Cardiology & Heart Care</h3>
+        <p>Comprehensive cardiac diagnostics, interventional catheterization laboratory, coronary angioplasty, pacemaker implantations, and cardiac intensive care.</p>
+        <a href="#book-appointment" class="btn btn-outline btn-sm">Consult Specialist <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="dept-card">
+        <div class="dept-icon"><i class="fa-solid fa-brain"></i></div>
+        <h3>Neurology & Neuro Surgery</h3>
+        <p>Dedicated stroke critical unit, complex brain tumour microsurgery, minimally invasive spine surgery, and neurological rehabilitation.</p>
+        <a href="#book-appointment" class="btn btn-outline btn-sm">Consult Specialist <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="dept-card">
+        <div class="dept-icon"><i class="fa-solid fa-bone"></i></div>
+        <h3>Orthopaedics & Joint Care</h3>
+        <p>Robotic computer-navigated total knee and hip replacements, arthroscopic sports medicine, complex trauma reconstruction, and spine care.</p>
+        <a href="#book-appointment" class="btn btn-outline btn-sm">Consult Specialist <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="dept-card">
+        <div class="dept-icon"><i class="fa-solid fa-baby"></i></div>
+        <h3>Paediatrics & Neonatology</h3>
+        <p>Level III Neonatal ICU (NICU), comprehensive child development monitoring, paediatric surgeries, and complete vaccination schedules.</p>
+        <a href="#book-appointment" class="btn btn-outline btn-sm">Consult Specialist <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="dept-card">
+        <div class="dept-icon"><i class="fa-solid fa-person-breastfeeding"></i></div>
+        <h3>Obstetrics & Gynaecology</h3>
+        <p>Painless labour suites, high-risk maternal foetal medicine, laparoscopic gynaecologic surgeries, and comprehensive women's health screening.</p>
+        <a href="#book-appointment" class="btn btn-outline btn-sm">Consult Specialist <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="dept-card">
+        <div class="dept-icon"><i class="fa-solid fa-shield-virus"></i></div>
+        <h3>Nephrology & Renal Dialysis</h3>
+        <p>24x7 computerized hemodialysis unit, kidney disease management, continuous renal replacement therapy (CRRT), and transplant care.</p>
+        <a href="#book-appointment" class="btn btn-outline btn-sm">Consult Specialist <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Health Packages Section -->
+  <section id="packages" class="section-wrapper" style="background:#FFFFFF; border-top:1px solid #E2E8F0; border-bottom:1px solid #E2E8F0;">
+    <div class="section-head">
+      <span class="sub-title">Preventive Healthcare Plans</span>
+      <h2>Comprehensive Health Checkup Packages</h2>
+      <p>Tailored master wellness screenings designed for early detection and preventive health management.</p>
+    </div>
+
+    <div class="packages-grid">
+      <div class="pkg-card">
+        <h3>MediTrack Essential Wellness</h3>
+        <p style="color:#64748B; font-size:0.875rem;">Fundamental annual health checkup for young adults.</p>
+        <div class="pkg-price">₹1,499 <span>/ Person</span></div>
+        <ul class="pkg-features">
+          <li><i class="fa-solid fa-circle-check"></i> Complete Blood Count (CBC) & ESR</li>
+          <li><i class="fa-solid fa-circle-check"></i> Fasting Blood Sugar & Urine Routine</li>
+          <li><i class="fa-solid fa-circle-check"></i> Lipid Profile (Cholesterol, HDL, LDL)</li>
+          <li><i class="fa-solid fa-circle-check"></i> 12-Lead Resting Digital ECG</li>
+          <li><i class="fa-solid fa-circle-check"></i> General Physician Consultation</li>
+        </ul>
+        <a href="#book-appointment" class="btn btn-outline" style="width:100%;">Book Package</a>
+      </div>
+
+      <div class="pkg-card featured">
+        <span class="pkg-badge">POPULAR</span>
+        <h3>Comprehensive Cardiac Care</h3>
+        <p style="color:#64748B; font-size:0.875rem;">Advanced heart screening for individuals above 35 years.</p>
+        <div class="pkg-price">₹3,999 <span>/ Person</span></div>
+        <ul class="pkg-features">
+          <li><i class="fa-solid fa-circle-check"></i> All Essential Wellness Tests Included</li>
+          <li><i class="fa-solid fa-circle-check"></i> 2D Echocardiogram with Doppler</li>
+          <li><i class="fa-solid fa-circle-check"></i> Treadmill Stress Test (TMT)</li>
+          <li><i class="fa-solid fa-circle-check"></i> Serum Creatinine & Liver Function Test</li>
+          <li><i class="fa-solid fa-circle-check"></i> Senior Cardiologist Clinical Evaluation</li>
+        </ul>
+        <a href="#book-appointment" class="btn btn-primary" style="width:100%;">Book Package</a>
+      </div>
+
+      <div class="pkg-card">
+        <h3>Master Senior Citizen Plan</h3>
+        <p style="color:#64748B; font-size:0.875rem;">Exhaustive whole-body assessment for age 55+.</p>
+        <div class="pkg-price">₹5,499 <span>/ Person</span></div>
+        <ul class="pkg-features">
+          <li><i class="fa-solid fa-circle-check"></i> Complete Cardiac & Renal Profiles</li>
+          <li><i class="fa-solid fa-circle-check"></i> HbA1c Glycated Haemoglobin</li>
+          <li><i class="fa-solid fa-circle-check"></i> Ultrasound Abdomen & Pelvis Screening</li>
+          <li><i class="fa-solid fa-circle-check"></i> Vitamin D3 & Vitamin B12 Levels</li>
+          <li><i class="fa-solid fa-circle-check"></i> Orthopaedic & Physician Consultations</li>
+        </ul>
+        <a href="#book-appointment" class="btn btn-outline" style="width:100%;">Book Package</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hospital Footer -->
+  <footer class="hospital-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+          <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+          <h3 style="color:#FFFFFF; font-size:1.3rem;">MEDI TRACK HOSPITAL</h3>
+        </div>
+        <p style="color:#94A3B8; font-size:0.9rem; margin-bottom:16px;">A premier multispeciality hospital committed to clinical excellence, patient safety, ethical healthcare practices, and integrated digital management.</p>
+        <div style="color:#E2E8F0; font-size:0.85rem; line-height:1.7;">
+          <p><i class="fa-solid fa-location-dot" style="color:#38BDF8; margin-right:8px;"></i> No. 1, Hospital Road, 100 Feet Bypass, Vadapalani, Chennai - 600026</p>
+          <p><i class="fa-solid fa-phone" style="color:#38BDF8; margin-right:8px;"></i> 24x7 Helpline: +91 44 2483 3444 / 1066</p>
+          <p><i class="fa-solid fa-envelope" style="color:#38BDF8; margin-right:8px;"></i> Email: care@meditrack.in</p>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Specialties</h4>
+        <ul class="footer-links">
+          <li><a href="#departments">Cardiology & CCU</a></li>
+          <li><a href="#departments">Neurology & Spine</a></li>
+          <li><a href="#departments">Robotic Orthopaedics</a></li>
+          <li><a href="#departments">Nephrology & Dialysis</a></li>
+          <li><a href="#departments">Paediatric Critical Care</a></li>
+          <li><a href="#departments">Obstetrics & Gynaecology</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Hospital</a></li>
+          <li><a href="#doctors">Find a Doctor</a></li>
+          <li><a href="#packages">Health Packages</a></li>
+          <li><a href="#book-appointment">Book OPD Appointment</a></li>
+          <li><a href="/login">Doctor & Staff Portal</a></li>
+          <li><a href="/login">Patient Health Portal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Accreditation & Quality</h4>
+        <div style="background:rgba(255,255,255,0.05); padding:16px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); margin-bottom:16px;">
+          <strong style="color:#FFFFFF; font-size:0.85rem;"><i class="fa-solid fa-certificate" style="color:#F59E0B; margin-right:6px;"></i> NABH ACCREDITED</strong>
+          <p style="color:#94A3B8; font-size:0.75rem; margin-top:4px;">National Accreditation Board for Hospitals & Healthcare Providers</p>
+          <p style="color:#64748B; font-size:0.75rem;">Reg: NABH/HOSP/2026/TN/0942 | GSTIN: 33AAACM1234F1Z8</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 MEDI TRACK Hospital – Integrated Patient Care Management System. All Rights Reserved.</p>
+      <p>Designed with clinical precision & enterprise security.</p>
+    </div>
+  </footer>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    // Set default date to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById("hero-date-input").value = tomorrow.toISOString().split('T')[0];
+
+    async function handleHeroBooking() {
+      const doctorId = document.getElementById("hero-doctor-select").value;
+      const dept = document.getElementById("hero-dept-select").value;
+      const date = document.getElementById("hero-date-input").value;
+      const time = document.getElementById("hero-time-select").value;
+      const name = document.getElementById("hero-patient-name").value;
+      const phone = document.getElementById("hero-patient-phone").value;
+
+      try {
+        // Register or find patient
+        const patRes = await API.registerPatient({
+          full_name: name,
+          phone: phone,
+          date_of_birth: "1990-01-01",
+          gender: "Male"
+        }).catch(() => null);
+
+        const patientId = patRes?.patient_id || 1;
+
+        // Check availability
+        const isAvail = await App.validateAppointmentBooking(doctorId, date, time);
+        if (!isAvail) {
+          alert("Double Booking Alert! The selected doctor is unavailable at this date and time slot. Please choose another slot.");
+          return;
+        }
+
+        const apptRes = await API.createAppointment({
+          patient_id: patientId,
+          doctor_id: parseInt(doctorId),
+          department: dept,
+          appointment_date: date,
+          appointment_time: time,
+          appointment_type: "New Consultation",
+          symptoms: "Booked via MediTrack Public Hospital Portal",
+          notes: `Patient Contact: ${phone}`
+        });
+
+        if (apptRes.success) {
+          alert(`Appointment Confirmed!\nAppointment Number: ${apptRes.appointment_no}\nDate: ${date} at ${time}\nDepartment: ${dept}\n\nPlease arrive 15 minutes before your scheduled slot.`);
+          document.getElementById("hero-quick-booking-form").reset();
+        }
+      } catch (err) {
+        alert("Booking Error: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>

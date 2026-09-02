@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard – MEDI TRACK Healthcare Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="portal-layout">
+    <!-- Fixed Sidebar Navigation -->
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="brand-titles">
+          <h2 style="font-size:1.15rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+          <span style="font-size:0.68rem;">Hospital Management</span>
+        </div>
+      </div>
+
+      <div class="sidebar-user-card" id="portal-user-meta">
+        <div class="user-avatar-circle">A</div>
+        <div class="user-meta">
+          <h4>Administrator</h4>
+          <span>ADMIN</span>
+        </div>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li><a href="/dashboard" class="sidebar-link active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li data-role="ADMIN,DOCTOR"><a href="/patients" class="sidebar-link"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li data-role="ADMIN"><a href="/doctors" class="sidebar-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+        <li><a href="/appointments" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+        <li data-role="ADMIN,DOCTOR"><a href="/consultations" class="sidebar-link"><i class="fa-solid fa-stethoscope"></i> Consultations</a></li>
+        <li><a href="/prescriptions" class="sidebar-link"><i class="fa-solid fa-prescription"></i> Prescriptions</a></li>
+        <li data-role="ADMIN,DOCTOR"><a href="/medicines" class="sidebar-link"><i class="fa-solid fa-pills"></i> Medicine Master</a></li>
+        <li><a href="/invoices" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a></li>
+        <li><a href="/payments" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Payments</a></li>
+        <li data-role="ADMIN"><a href="/analytics" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+        <li data-role="ADMIN"><a href="/reports" class="sidebar-link"><i class="fa-solid fa-file-lines"></i> Reports & Export</a></li>
+        <li data-role="ADMIN"><a href="/reports#audit" class="sidebar-link"><i class="fa-solid fa-shield-halved"></i> Audit Logs</a></li>
+        <li style="margin-top:auto; padding-top:16px; border-top:1px solid #E2E8F0;">
+          <a href="#" onclick="App.logout(); return false;" class="sidebar-link" style="color:#E11D48;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="portal-main-content">
+      <!-- Portal Topbar -->
+      <header class="portal-topbar">
+        <div>
+          <h2 style="font-size:1.25rem; color:#0A3871; margin:0;">Healthcare Operations Dashboard</h2>
+          <span style="font-size:0.8rem; color:#64748B;">NABH Clinical Quality & Resource Overview</span>
+        </div>
+        <div class="topbar-actions">
+          <a href="/" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-globe"></i> View Website</a>
+          <button class="btn btn-primary btn-sm" onclick="App.openModal('quick-appt-modal')"><i class="fa-solid fa-plus"></i> New Appointment</button>
+        </div>
+      </header>
+
+      <div class="portal-page-body">
+        
+        <!-- KPI Metrics Grid -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-text">
+              <span>Total Registered Patients</span>
+              <h3 id="stat-patients">1,248</h3>
+            </div>
+            <div class="kpi-icon"><i class="fa-solid fa-hospital-user"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-text">
+              <span>Today's OPD Appointments</span>
+              <h3 id="stat-appts">28</h3>
+            </div>
+            <div class="kpi-icon" style="background:#FEF3C7; color:#B45309;"><i class="fa-solid fa-calendar-check"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-text">
+              <span>Active Clinical Specialists</span>
+              <h3 id="stat-doctors">8</h3>
+            </div>
+            <div class="kpi-icon" style="background:#DCFCE7; color:#15803D;"><i class="fa-solid fa-user-doctor"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-text">
+              <span>Monthly Hospital Revenue</span>
+              <h3 id="stat-revenue">₹9.20 L</h3>
+            </div>
+            <div class="kpi-icon" style="background:#E0E7FF; color:#4338CA;"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+          </div>
+        </div>
+
+        <!-- Dashboard Charts Row -->
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px; margin-bottom:28px;">
+          <div class="card" style="margin:0;">
+            <div class="card-header">
+              <h3>Monthly Patient OPD Admissions & Revenue Trend</h3>
+              <span class="badge badge-info">2026 Fiscal</span>
+            </div>
+            <div class="card-body">
+              <canvas id="trendChart" height="110"></canvas>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card-header">
+              <h3>Specialty Department Load</h3>
+            </div>
+            <div class="card-body">
+              <canvas id="deptChart" height="230"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Appointments & Active Consultations -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Today's Scheduled OPD Consultations</h3>
+            <a href="/appointments" class="btn btn-outline btn-sm">View Full Schedule</a>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Token / Appt ID</th>
+                    <th>Patient Name (UHID)</th>
+                    <th>Specialist Doctor</th>
+                    <th>Department</th>
+                    <th>Time Slot</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-appts-body">
+                  <tr>
+                    <td colspan="7" style="text-align:center; padding:24px; color:#64748B;">Loading today's clinical appointments...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      loadDashboardData();
+    });
+
+    async function loadDashboardData() {
+      try {
+        const [analytics, appts] = await Promise.all([
+          API.getAnalytics(),
+          API.getAppointments()
+        ]);
+
+        if (analytics && analytics.summary) {
+          document.getElementById("stat-patients").textContent = analytics.summary.total_patients || "12";
+          document.getElementById("stat-appts").textContent = appts.length || "6";
+          document.getElementById("stat-doctors").textContent = analytics.summary.total_doctors || "8";
+          document.getElementById("stat-revenue").textContent = `₹${(analytics.summary.total_revenue || 5247.64).toLocaleString('en-IN')}`;
+        }
+
+        // Render Appointments Table
+        const tbody = document.getElementById("dashboard-appts-body");
+        if (appts.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:20px;">No appointments scheduled today.</td></tr>`;
+        } else {
+          tbody.innerHTML = appts.slice(0, 6).map(a => `
+            <tr>
+              <td><strong style="color:#0A3871;">${a.appointment_no}</strong></td>
+              <td>
+                <div style="font-weight:600;">${a.patient_name}</div>
+                <div style="font-size:0.75rem; color:#64748B;">${a.patient_uhid}</div>
+              </td>
+              <td>${a.doctor_name}</td>
+              <td><span class="badge badge-info">${a.department}</span></td>
+              <td><strong>${a.appointment_time}</strong></td>
+              <td>
+                <span class="badge ${a.status === 'Completed' ? 'badge-success' : (a.status === 'Cancelled' ? 'badge-danger' : 'badge-warning')}">${a.status}</span>
+              </td>
+              <td>
+                <a href="/consultations" class="btn btn-sm btn-secondary"><i class="fa-solid fa-stethoscope"></i> Consult</a>
+              </td>
+            </tr>
+          `).join('');
+        }
+
+        // Initialize Chart.js
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+          type: 'line',
+          data: {
+            labels: analytics.monthly_trends.labels,
+            datasets: [
+              {
+                label: 'Monthly Patients',
+                data: analytics.monthly_trends.patients,
+                borderColor: '#0284C7',
+                backgroundColor: 'rgba(2, 132, 199, 0.1)',
+                fill: true,
+                tension: 0.3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: true } }
+          }
+        });
+
+        const deptCtx = document.getElementById('deptChart').getContext('2d');
+        const deptLabels = Object.keys(analytics.department_workload || {});
+        const deptData = Object.values(analytics.department_workload || {});
+        new Chart(deptCtx, {
+          type: 'doughnut',
+          data: {
+            labels: deptLabels.length ? deptLabels : ['Cardiology', 'Orthopaedics', 'Neurology', 'Paediatrics'],
+            datasets: [{
+              data: deptData.length ? deptData : [12, 8, 6, 5],
+              backgroundColor: ['#0A3871', '#0284C7', '#0D9488', '#F59E0B', '#6366F1', '#EC4899']
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } }
+          }
+        });
+
+      } catch (err) {
+        console.error("Dashboard error:", err);
+      }
+    }
+  </script>
+</body>
+</html>
