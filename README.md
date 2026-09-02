@@ -1,7 +1,6 @@
 # MEDI TRACK – Integrated Patient Care Management System
 
-An enterprise-grade, Indian multispeciality hospital web portal and integrated healthcare management system designed with inspiration from premier healthcare institutions (such as Sooriya Hospital, Chennai).
-
+An enterprise-grade, Indian multispeciality hospital web portal and integrated healthcare management system 
 ---
 
 ## Key Capabilities & Architecture
