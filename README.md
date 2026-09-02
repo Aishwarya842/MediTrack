@@ -108,13 +108,3 @@ python3 app.py
 Server will start at `http://localhost:3000` (or `http://localhost:5000`).
 
 ---
-
-## Pre-configured Test Credentials
-
-| Role | Username | Email | Default Password |
-|---|---|---|---|
-| **Admin** | `admin` | `admin@meditrack.in` | `Admin@123` |
-| **Doctor** | `dr_kavitha` | `kavitha.cardio@meditrack.in` | `Doctor@123` |
-| **Patient** | `patient_rajesh` | `rajesh.sharma@gmail.com` | `Patient@123` |
-
-*(Quick 1-Click login buttons are also provided on the login page for instant testing).*
