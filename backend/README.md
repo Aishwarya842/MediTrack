@@ -1,86 +1,351 @@
-# 🏥 MEDI TRACK — Full-Stack Hospital Information Management System (HIMS)
+# MediTrack — Integrated Patient Care Management System
 
-## 📌 Architecture Overview
-
-This project implements a complete Enterprise Hospital Management System based on your mentor's requirements:
-
-- **Frontend**: Modern React + TypeScript + Tailwind CSS with responsive Role-Based Portals (Admin, Doctor, Receptionist, Patient) & High-Impact Clinical UI.
-- **Backend**: **Python 3.10+ with FastAPI** for high-performance async REST APIs, automatic OpenAPI/Swagger documentation, and JWT Authentication with RBAC middleware.
-- **Database**: **MySQL Database** powered by `meditrack.sql` (also compatible with SQLite for zero-config testing), mapped via **SQLAlchemy 2.0 ORM** models and **Pydantic v2** validation.
+A full-stack enterprise hospital management portal for Indian multispeciality hospitals, covering the complete patient care lifecycle — from public-facing website and appointment booking to clinical consultations, prescriptions, GST billing, pharmacy inventory, and analytics.
 
 ---
 
-## 🗄️ Database Mapping (`meditrack.sql` ⟷ Python ORM)
+## Features
 
-| SQL Table (`meditrack.sql`) | SQLAlchemy Model (`models.py`) | Description |
-| :--- | :--- | :--- |
-| `users` | `User` | Role-based accounts (`admin`, `doctor`, `receptionist`, `patient`) |
-| `patients` | `Patient` | Master UHID patient registry, medical history, allergies, emergency contacts |
-| `doctors` | `Doctor` | Doctor profiles, specializations, OPD consultation fees, experience |
-| `receptionists` | `Receptionist`| Front-desk staff registry with shift schedules |
-| `appointments` | `Appointment` | OPD slot booking, token queue, status workflow |
-| `consultations` | `Consultation`| Clinical diagnosis, symptoms, examination observations, follow-up dates |
-| `medicines` | `Medicine` | Pharmacy inventory, drug strength, form, category, unit price, stock |
-| `prescriptions` | `Prescription` | Digital Rx headers, validity periods, doctor notes |
-| `prescription_medicines` | `PrescriptionMedicine` | Rx drug line items with dosage, frequency, instructions, and duration |
-| `invoices` | `Invoice` | Billing accounting: consultation fee, medicine, lab charges, tax, grand total |
-| `payments` | `Payment` | Multi-mode settlement (UPI, Card, Cash) and digital receipts |
-| `notifications` | `Notification`| Automated appointment reminders and report alerts |
-| `audit_logs` | `AuditLog` | Clinical audit trail tracking user actions and IP addresses |
+### Public Hospital Portal
+- 24x7 Emergency Hotline (`1066`), NABH accreditation highlights, OPD timings
+- 9 interactive specialty departments (Cardiology, Neurology, Orthopaedics, Nephrology, Paediatrics, OB/GYN, Gastroenterology, Pulmonology)
+- Specialist doctor roster with experience, qualifications, and live slot booking
+- Preventive health checkup packages (Cardiac, Diabetes, Senior Citizen, Executive)
+
+### Role-Based Access Control (RBAC)
+| Role | Capabilities |
+|------|-------------|
+| **Admin** | Hospital governance, patient/doctor management, appointments, pharmacy stock, GST billing, payments, analytics, audit logs, reporting |
+| **Doctor** | OPD consultation room, vitals logging, symptoms, ICD-10 diagnosis, treatment protocols, digital prescriptions with live medicine search |
+| **Patient** | Self-service appointment booking, history, digital prescriptions (download/print), GST invoices, UPI/Card payments |
+
+### Medicine Inventory & Pharmacy
+- 20+ Indian pharmaceutical formulations across 16 clinical categories
+- Brands: Micro Labs, Sun Pharma, Cipla, Dr. Reddy's, GSK, Glenmark, Torrent
+- Dosage forms: Tablet, Capsule, Syrup, Injection, Drops, Cream, Ointment, Inhaler, Powder, Suspension
+- Stock management with batch tracking, expiry dates, and auto-refill alerts
+
+### Billing & Payments
+- Automated formula: Consultation + Medicine + Lab + Nursing − Discount + 5% GST = Grand Total
+- Payment modes: Cash, Credit/Debit Card, UPI (Google Pay, PhonePe, Paytm, BHIM), Net Banking
+- GST-compliant invoices with HSN codes
+
+### Analytics & Reporting
+- Monthly OPD trends, gender distribution, department workload
+- Top prescribed medicines, monthly revenue, payment status distribution
+- One-click CSV and PDF export
 
 ---
 
-## 🚀 How to Run the Python Backend
+## Tech Stack
 
-### 1. Install Dependencies
+| Layer | Technology |
+|-------|-----------|
+| **Frontend (React SPA)** | React 19, TypeScript, Vite 6, Tailwind CSS 4, Chart.js, jsPDF, Lucide icons, Motion (animations) |
+| **Frontend (Flask templates)** | HTML5, CSS3, Vanilla JS (ES6+ Fetch API), Jinja2, Chart.js, Font Awesome |
+| **Backend (Flask)** | Python 3.10+, Flask 3.0+, Flask-JWT-Extended, Flask-CORS, Werkzeug |
+| **Backend (FastAPI)** | Python 3.10+, FastAPI 0.110, SQLAlchemy 2.0, Pydantic v2, Uvicorn |
+| **Database** | SQLite (zero-config default) or MySQL 8.0+ / MariaDB |
+|
+
+---
+
+## Project Structure
+
+```
+MediTrack/
+├── app.py                        # Flask REST API server & web controller
+├── config.py                     # Environment & hospital configuration
+├── requirements.txt              # Python (Flask) dependencies
+├── package.json                  # Node.js (React) dependencies
+├── index.html                    # React SPA entry point
+├── vite.config.ts                # Vite + Tailwind configuration
+├── tsconfig.json                 # TypeScript configuration
+├── .env.example                  # Environment variable template
+│
+├── database/
+│   ├── meditrack.sql             # MySQL 8.0+ schema & seed data
+│   └── meditrack.sqlite          # Auto-generated SQLite database
+│
+├── templates/                    # Flask Jinja2 templates (13 pages)
+│   ├── home.html
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── patients.html
+│   ├── doctors.html
+│   ├── appointments.html
+│   ├── consultations.html
+│   ├── prescriptions.html
+│   ├── medicines.html
+│   ├── invoices.html
+│   ├── payments.html
+│   ├── analytics.html
+│   └── reports.html
+│
+├── static/
+│   ├── css/style.css             # Hospital theme & print stylesheets
+│   └── js/
+│       ├── main.js               # UI controllers & routing
+│       └── api.js                # REST API client
+│
+├── src/                          # React + TypeScript SPA
+│   ├── main.tsx                  # React entry point
+│   ├── App.tsx                   # Main application component
+│   ├── index.css                 # Tailwind + custom styles
+│   ├── components/               # 26 React components
+│   ├── data/hospitalData.ts      # Clinical datasets & constants
+│   ├── services/db.ts            # localStorage persistence service
+│   └── assets/images/            # Hospital & doctor photos
+│
+└── backend/                      # FastAPI backend (v2.0.0)
+    ├── main.py                   # FastAPI application
+    ├── database.py               # SQLAlchemy engine/session
+    ├── models.py                 # ORM models (13 tables)
+    ├── schemas.py                # Pydantic v2 schemas
+    ├── auth.py                   # JWT auth & RBAC
+    ├── requirements.txt          # FastAPI dependencies
+    ├── .env.example              # SMS gateway config template
+    ├── routers/                  # API route modules
+    └── services/sms_service.py   # Twilio/Fast2SMS integration
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Python 3.10+
+- Node.js 18+ (or Bun)
+- MySQL 8.0+ (optional — SQLite works with zero configuration)
+
+### Option A: Flask App (Full-Stack Server-Rendered)
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/MediTrack.git
+cd MediTrack
+
+# Create and activate virtual environment
+python -m venv venv
+venv\Scripts\activate          # Windows
+# source venv/bin/activate     # macOS/Linux
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# (Optional) Set environment variables for MySQL
+# set USE_SQLITE=false
+# set MYSQL_USER=root
+# set MYSQL_PASSWORD=your_password
+# set MYSQL_DB=meditrack_db
+
+# Start the server
+python app.py
+```
+
+Server starts at **http://localhost:3000**. SQLite database is auto-created on first run with full schema and seed data.
+
+### Option B: React SPA (Client-Side with localStorage)
+
+```bash
+# Install Node dependencies
+npm install
+# or: bun install
+
+# Start development server
+npm run dev
+```
+
+React dev server starts at **http://localhost:3000**. All data persists in browser localStorage.
+
+### Option C: FastAPI Backend (REST API Only)
+
 ```bash
 cd backend
+
+# Create and activate virtual environment
 python -m venv venv
-# On Windows:
-venv\Scripts\activate
-# On Mac/Linux:
-source venv/bin/activate
+venv\Scripts\activate          # Windows
+# source venv/bin/activate     # macOS/Linux
 
+# Install dependencies
 pip install -r requirements.txt
-```
 
-### 2. Configure Database
-By default, the backend connects to MySQL. You can configure your connection string via `.env` or environment variable:
-```bash
-# For MySQL (matching meditrack.sql):
-export DATABASE_URL="mysql+pymysql://root:your_mysql_password@localhost:3306/meditrack_db"
+# (Optional) Configure .env for database and SMS
+# copy .env.example .env
 
-# Or for local SQLite testing:
-export DATABASE_URL="sqlite:///./meditrack.db"
-```
-
-### 3. Initialize Database Schema
-If using MySQL, run the provided SQL script:
-```bash
-mysql -u root -p < meditrack.sql
-```
-
-### 4. Start the FastAPI Server
-```bash
+# Start the server
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
----
-
-## 📖 Interactive API Documentation (Swagger / OpenAPI)
-
-Once the backend is running, open your browser:
-- **Interactive Swagger UI**: `http://localhost:8000/docs`
-- **ReDoc Documentation**: `http://localhost:8000/redoc`
-- **Health Check**: `http://localhost:8000/api/health`
+- API docs (Swagger): **http://localhost:8000/docs**
+- ReDoc: **http://localhost:8000/redoc**
+- Health check: **http://localhost:8000/api/health**
 
 ---
 
-## 🔑 Default Login Credentials (from `meditrack.sql`)
+## Database
 
-| Role | Email | Password | Access Rights |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin@meditrack.com` | `admin123` | Full hospital governance, financial audit, staff directory |
-| **Doctor** | `dr.john@meditrack.com` | `doctor123` | Clinical OPD queue, electronic health records, Rx writer |
-| **Receptionist** | `reception@meditrack.com` | `reception123` | Patient registration, UHID issuance, token booking, billing |
-| **Patient** | `raj.kumar@email.com` | `patient123` | Personal EHR, prescription downloads, appointment schedule |
+### SQLite (Default — Zero Config)
+The Flask app automatically creates `database/meditrack.sqlite` on startup with all 13 tables and seed data. No setup required.
+
+### MySQL (Production)
+```bash
+mysql -u root -p < database/meditrack.sql
+```
+
+Then set environment variables:
+```
+USE_SQLITE=false
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWORD=your_password
+MYSQL_DB=meditrack_db
+```
+
+### Database Schema (13 Tables)
+`users` → `patients` → `doctors` → `appointments` → `consultations` → `medicines` → `prescriptions` → `prescription_medicines` → `invoices` → `invoice_items` → `payments` → `notifications` → `audit_logs`
+
+---
+
+## Environment Variables
+
+### Flask App (`config.py`)
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SECRET_KEY` | `meditrack-super-secret-production-key-2026` | Flask session secret |
+| `JWT_SECRET_KEY` | `meditrack-jwt-token-signing-secret-2026` | JWT token signing key |
+| `USE_SQLITE` | `true` | Use SQLite (`true`) or MySQL (`false`) |
+| `MYSQL_HOST` | `localhost` | MySQL host |
+| `MYSQL_PORT` | `3306` | MySQL port |
+| `MYSQL_USER` | `root` | MySQL username |
+| `MYSQL_PASSWORD` | `""` | MySQL password |
+| `MYSQL_DB` | `meditrack_db` | MySQL database name |
+
+### FastAPI Backend (`backend/.env`)
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | Database connection string |
+| `TWILIO_ACCOUNT_SID` | Twilio account SID |
+| `TWILIO_AUTH_TOKEN` | Twilio auth token |
+| `TWILIO_PHONE_NUMBER` | Twilio sender number |
+| `FAST2SMS_API_KEY` | Fast2SMS API key (India) |
+
+### Gemini AI (`.env`)
+| Variable | Description |
+|----------|-------------|
+| `GEMINI_API_KEY` | Google Gemini API key |
+| `APP_URL` | Application URL |
+
+---
+
+## API Endpoints (Flask — `localhost:3000`)
+
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/login` | Login (username/email + password → JWT) |
+| POST | `/api/auth/register` | Patient self-registration |
+
+### Patients
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/patients` | List all (optional `?search=`) |
+| GET | `/api/patients/<id>` | Get patient by ID |
+| POST | `/api/patients` | Create patient |
+| PUT | `/api/patients/<id>` | Update patient |
+| DELETE | `/api/patients/<id>` | Delete patient |
+
+### Doctors
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/doctors` | List all (optional `?department=`) |
+| GET | `/api/doctors/<id>` | Get doctor by ID |
+
+### Appointments
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/appointments/check-availability` | Check slot availability |
+| GET | `/api/appointments` | List (filters: `patient_id`, `doctor_id`, `status`) |
+| POST | `/api/appointments` | Book appointment (double-booking prevention) |
+| PUT | `/api/appointments/<id>/status` | Update appointment status |
+
+### Consultations
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/consultations` | List (optional `?patient_id=`) |
+| POST | `/api/consultations` | Create consultation with vitals & ICD-10 diagnosis |
+
+### Medicines
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/medicines` | List (filters: `search`, `category`) |
+| POST | `/api/medicines` | Add medicine to catalog |
+| PUT | `/api/medicines/<id>` | Update stock, batch, pricing |
+
+### Prescriptions
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/prescriptions` | List (filters: `patient_id`, `doctor_id`) |
+| POST | `/api/prescriptions` | Create prescription (auto-deducts stock) |
+
+### Invoices & Payments
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/invoices` | List (optional `?patient_id=`) |
+| POST | `/api/invoices` | Create GST invoice (auto-calculates totals) |
+| GET | `/api/payments` | List all payments |
+| POST | `/api/payments` | Record payment (updates invoice status) |
+
+### Analytics & System
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/analytics` | Dashboard metrics & trends |
+| GET | `/api/audit-logs` | Last 50 audit entries |
+| GET | `/api/notifications` | Last 20 notifications |
+
+---
+
+## Test Credentials
+
+### Flask App
+| Role | Username | Email | Password |
+|------|----------|-------|----------|
+| Admin | `admin` | `Admin@123` |
+| Doctor | `dr_kavitha` | 
+| Patient | `mobile number`|
+
+### FastAPI Backend
+| Role | Email | Password |
+|------|-------|----------|
+| Admin |`admin123` |
+| Doctor | `through selecting their name`|
+| Receptionist  | `reception` |
+| Patient | `mobile number`|
+
+> Quick-login buttons are available on the login page for instant testing.
+
+---
+
+## OPD Fee Structure
+
+| Item | Amount |
+|------|--------|
+| Consultation Fee | ₹700 |
+| Nursing / Registration | ₹200 |
+| GST (5%) | ₹45 |
+| **Total** | **₹945** |
+
+---
+
+## Hospital Identity
+
+- **Name**: MediTrack Multispeciality Hospital
+- **Location**: Chennai, Tamil Nadu, India
+- **Accreditation**: NABH Accredited
+- **GSTIN**: `33AAACM1234F1Z8`
+- **Emergency**: `1066` (24x7)
+
+---
+
