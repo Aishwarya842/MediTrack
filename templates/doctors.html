@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Directory – MEDI TRACK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="brand-titles">
+          <h2 style="font-size:1.15rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+          <span style="font-size:0.68rem;">Hospital Management</span>
+        </div>
+      </div>
+      <div class="sidebar-user-card" id="portal-user-meta"></div>
+      <ul class="sidebar-nav">
+        <li><a href="/dashboard" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="/patients" class="sidebar-link"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li><a href="/doctors" class="sidebar-link active"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+        <li><a href="/appointments" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="/consultations" class="sidebar-link"><i class="fa-solid fa-stethoscope"></i> Consultations</a></li>
+        <li><a href="/prescriptions" class="sidebar-link"><i class="fa-solid fa-prescription"></i> Prescriptions</a></li>
+        <li><a href="/medicines" class="sidebar-link"><i class="fa-solid fa-pills"></i> Medicine Master</a></li>
+        <li><a href="/invoices" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a></li>
+        <li><a href="/payments" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Payments</a></li>
+        <li><a href="/analytics" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+        <li><a href="/reports" class="sidebar-link"><i class="fa-solid fa-file-lines"></i> Reports & Export</a></li>
+        <li style="margin-top:auto; padding-top:16px; border-top:1px solid #E2E8F0;">
+          <a href="#" onclick="App.logout(); return false;" class="sidebar-link" style="color:#E11D48;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="portal-main-content">
+      <header class="portal-topbar">
+        <div>
+          <h2 style="font-size:1.25rem; color:#0A3871; margin:0;">Clinical Specialists & Consultant Directory</h2>
+          <span style="font-size:0.8rem; color:#64748B;">Super-Speciality Medical Faculty, OPD Consultation Slots & Reg. Nos.</span>
+        </div>
+      </header>
+
+      <div class="portal-page-body">
+        <div class="doc-grid" id="doctors-grid-body">
+          <div style="grid-column: 1/-1; text-align:center; padding:30px;">Loading doctors directory...</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const doctors = await API.getDoctors();
+        const grid = document.getElementById("doctors-grid-body");
+        grid.innerHTML = doctors.map(d => `
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-avatar">${d.full_name.charAt(4) || 'D'}</div>
+              <div class="doc-info-brief">
+                <h3>${d.full_name}</h3>
+                <div class="dept-tag">${d.department}</div>
+                <div style="font-size:0.75rem; color:#64748B;">${d.qualification}</div>
+              </div>
+            </div>
+            <div class="doc-card-body">
+              <div class="doc-meta-row">
+                <span class="label">Medical Council Reg:</span>
+                <span class="val">${d.registration_no}</span>
+              </div>
+              <div class="doc-meta-row">
+                <span class="label">Clinical Experience:</span>
+                <span class="val">${d.experience_years} Years</span>
+              </div>
+              <div class="doc-meta-row">
+                <span class="label">Consultation Fee:</span>
+                <span class="val" style="color:#059669; font-weight:700;">₹${d.consultation_fee}</span>
+              </div>
+              <div class="doc-meta-row">
+                <span class="label">Available Days:</span>
+                <span class="val">${d.available_days}</span>
+              </div>
+              <div style="margin-top:16px;">
+                <a href="/appointments" class="btn btn-primary btn-sm" style="width:100%;"><i class="fa-solid fa-calendar-check"></i> Book OPD Slot</a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error("Doctors load error:", err);
+      }
+    });
+  </script>
+</body>
+</html>

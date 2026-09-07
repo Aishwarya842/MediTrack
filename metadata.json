@@ -1,0 +1,6 @@
+{
+  "name": "MediConnect – Integrated Patient Care & Multispeciality Hospital",
+  "description": "MediConnect is a comprehensive Indian multispeciality hospital portal and integrated healthcare management system featuring appointment booking, dedicated doctor & staff profiles, patient records, clinical consultations, digital prescriptions with medicine catalog, billing & GST invoices, multi-mode payments, and analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

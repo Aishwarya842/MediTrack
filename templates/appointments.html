@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointments – MEDI TRACK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="brand-titles">
+          <h2 style="font-size:1.15rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+          <span style="font-size:0.68rem;">Hospital Management</span>
+        </div>
+      </div>
+      <div class="sidebar-user-card" id="portal-user-meta"></div>
+      <ul class="sidebar-nav">
+        <li><a href="/dashboard" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="/patients" class="sidebar-link"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li><a href="/doctors" class="sidebar-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+        <li><a href="/appointments" class="sidebar-link active"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="/consultations" class="sidebar-link"><i class="fa-solid fa-stethoscope"></i> Consultations</a></li>
+        <li><a href="/prescriptions" class="sidebar-link"><i class="fa-solid fa-prescription"></i> Prescriptions</a></li>
+        <li><a href="/medicines" class="sidebar-link"><i class="fa-solid fa-pills"></i> Medicine Master</a></li>
+        <li><a href="/invoices" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a></li>
+        <li><a href="/payments" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Payments</a></li>
+        <li><a href="/analytics" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+        <li><a href="/reports" class="sidebar-link"><i class="fa-solid fa-file-lines"></i> Reports & Export</a></li>
+        <li style="margin-top:auto; padding-top:16px; border-top:1px solid #E2E8F0;">
+          <a href="#" onclick="App.logout(); return false;" class="sidebar-link" style="color:#E11D48;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="portal-main-content">
+      <header class="portal-topbar">
+        <div>
+          <h2 style="font-size:1.25rem; color:#0A3871; margin:0;">OPD Appointments & Slot Scheduler</h2>
+          <span style="font-size:0.8rem; color:#64748B;">Conflict Resolution & Automated Double-Booking Prevention</span>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="App.openModal('book-appt-modal')"><i class="fa-solid fa-calendar-plus"></i> Schedule Appointment</button>
+        </div>
+      </header>
+
+      <div class="portal-page-body">
+        <div class="card">
+          <div class="card-header">
+            <h3>Scheduled Appointments</h3>
+            <div style="display:flex; gap:12px;">
+              <select id="filter-status" class="form-control" style="width:160px;" onchange="fetchAppointments()">
+                <option value="">All Statuses</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Appt No.</th>
+                    <th>Patient Name (UHID)</th>
+                    <th>Specialist Doctor</th>
+                    <th>Department</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="appts-table-body">
+                  <tr><td colspan="7" style="text-align:center; padding:24px;">Loading appointments...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Book Appointment Modal -->
+  <div id="book-appt-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="color:#0A3871; margin:0;"><i class="fa-solid fa-calendar-check"></i> Book OPD Consultation Slot</h3>
+        <button class="btn btn-sm btn-outline" onclick="App.closeModal('book-appt-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="book-appt-form" onsubmit="event.preventDefault(); handleAppointmentSubmit();">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Select Patient *</label>
+              <select id="appt-patient" class="form-control" required></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Specialist Doctor *</label>
+              <select id="appt-doctor" class="form-control" required></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Appointment Date *</label>
+              <input type="date" id="appt-date" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">OPD Slot Time *</label>
+              <select id="appt-time" class="form-control" required>
+                <option value="09:00 AM">09:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="05:00 PM">05:00 PM</option>
+                <option value="06:00 PM">06:00 PM</option>
+                <option value="07:00 PM">07:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Symptoms / Reason for Visit</label>
+            <textarea id="appt-symptoms" class="form-control" rows="2" placeholder="Brief clinical complaints..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('book-appt-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Verify & Confirm Slot</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Set default date
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById("appt-date").value = tomorrow.toISOString().split('T')[0];
+
+      // Load Doctors and Patients for modal selects
+      const [patients, doctors] = await Promise.all([
+        API.getPatients(),
+        API.getDoctors()
+      ]);
+
+      const pSelect = document.getElementById("appt-patient");
+      pSelect.innerHTML = patients.map(p => `<option value="${p.id}">${p.full_name} (${p.uhid})</option>`).join('');
+
+      const dSelect = document.getElementById("appt-doctor");
+      dSelect.innerHTML = doctors.map(d => `<option value="${d.id}">${d.full_name} - ${d.department} (₹${d.consultation_fee})</option>`).join('');
+
+      fetchAppointments();
+    });
+
+    async function fetchAppointments() {
+      const status = document.getElementById("filter-status").value;
+      const appts = await API.getAppointments({ status });
+      const tbody = document.getElementById("appts-table-body");
+
+      if (appts.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:20px;">No appointments matching filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = appts.map(a => `
+        <tr>
+          <td><strong style="color:#0A3871;">${a.appointment_no}</strong></td>
+          <td>
+            <div style="font-weight:700;">${a.patient_name}</div>
+            <div style="font-size:0.75rem; color:#64748B;">${a.patient_uhid}</div>
+          </td>
+          <td>${a.doctor_name}</td>
+          <td><span class="badge badge-info">${a.department}</span></td>
+          <td><strong>${a.appointment_date}</strong> at ${a.appointment_time}</td>
+          <td>
+            <span class="badge ${a.status === 'Completed' ? 'badge-success' : (a.status === 'Cancelled' ? 'badge-danger' : 'badge-warning')}">${a.status}</span>
+          </td>
+          <td>
+            ${a.status !== 'Cancelled' ? `
+              <button class="btn btn-sm btn-outline" onclick="cancelAppointment(${a.id})" title="Cancel Slot" style="color:#E11D48;"><i class="fa-solid fa-ban"></i> Cancel</button>
+            ` : '<span style="font-size:0.8rem; color:#94A3B8;">Cancelled</span>'}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function cancelAppointment(id) {
+      if (!confirm("Are you sure you want to cancel this appointment slot?")) return;
+      try {
+        await API.updateAppointmentStatus(id, "Cancelled");
+        fetchAppointments();
+      } catch (err) {
+        alert("Cancellation error: " + err.message);
+      }
+    }
+
+    async function handleAppointmentSubmit() {
+      const doctorId = document.getElementById("appt-doctor").value;
+      const patientId = document.getElementById("appt-patient").value;
+      const date = document.getElementById("appt-date").value;
+      const time = document.getElementById("appt-time").value;
+      const symptoms = document.getElementById("appt-symptoms").value;
+
+      try {
+        const isAvail = await App.validateAppointmentBooking(doctorId, date, time);
+        if (!isAvail) {
+          alert("DOUBLE BOOKING PREVENTED!\nThis doctor is already booked for this specific time slot. Please select a different time or date.");
+          return;
+        }
+
+        const res = await API.createAppointment({
+          patient_id: parseInt(patientId),
+          doctor_id: parseInt(doctorId),
+          appointment_date: date,
+          appointment_time: time,
+          symptoms: symptoms
+        });
+
+        if (res.success) {
+          alert(`Appointment Confirmed!\nToken Number: ${res.appointment_no}`);
+          App.closeModal('book-appt-modal');
+          fetchAppointments();
+        }
+      } catch (err) {
+        alert("Booking Error: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>

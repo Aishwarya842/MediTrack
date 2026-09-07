@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoices & Billing – MEDI TRACK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="brand-titles">
+          <h2 style="font-size:1.15rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+          <span style="font-size:0.68rem;">Hospital Management</span>
+        </div>
+      </div>
+      <div class="sidebar-user-card" id="portal-user-meta"></div>
+      <ul class="sidebar-nav">
+        <li><a href="/dashboard" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="/patients" class="sidebar-link"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li><a href="/doctors" class="sidebar-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+        <li><a href="/appointments" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="/consultations" class="sidebar-link"><i class="fa-solid fa-stethoscope"></i> Consultations</a></li>
+        <li><a href="/prescriptions" class="sidebar-link"><i class="fa-solid fa-prescription"></i> Prescriptions</a></li>
+        <li><a href="/medicines" class="sidebar-link"><i class="fa-solid fa-pills"></i> Medicine Master</a></li>
+        <li><a href="/invoices" class="sidebar-link active"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a></li>
+        <li><a href="/payments" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Payments</a></li>
+        <li><a href="/analytics" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+        <li><a href="/reports" class="sidebar-link"><i class="fa-solid fa-file-lines"></i> Reports & Export</a></li>
+        <li style="margin-top:auto; padding-top:16px; border-top:1px solid #E2E8F0;">
+          <a href="#" onclick="App.logout(); return false;" class="sidebar-link" style="color:#E11D48;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="portal-main-content">
+      <header class="portal-topbar">
+        <div>
+          <h2 style="font-size:1.25rem; color:#0A3871; margin:0;">Hospital Billing & GST Tax Invoices</h2>
+          <span style="font-size:0.8rem; color:#64748B;">Automated Itemized Calculation, Discounts, 5% Healthcare GST & QR Receipts</span>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="App.openModal('create-invoice-modal')"><i class="fa-solid fa-file-circle-plus"></i> Generate Tax Invoice</button>
+        </div>
+      </header>
+
+      <div class="portal-page-body">
+        <div class="card">
+          <div class="card-header">
+            <h3>Hospital Billing Archive</h3>
+            <span class="badge badge-info" id="inv-total-badge">Invoices</span>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Invoice No.</th>
+                    <th>Date</th>
+                    <th>Patient Name (UHID)</th>
+                    <th>Doctor / Dept</th>
+                    <th>Subtotal</th>
+                    <th>Tax (GST 5%)</th>
+                    <th>Grand Total</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="invoices-table-body">
+                  <tr><td colspan="9" style="text-align:center; padding:24px;">Loading hospital invoices...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Generate Invoice Modal -->
+  <div id="create-invoice-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width:750px;">
+      <div class="modal-header">
+        <h3 style="color:#0A3871; margin:0;"><i class="fa-solid fa-file-invoice-dollar"></i> Generate GST Healthcare Tax Invoice</h3>
+        <button class="btn btn-sm btn-outline" onclick="App.closeModal('create-invoice-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="create-invoice-form" onsubmit="event.preventDefault(); handleSaveInvoice();">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Patient (UHID) *</label>
+              <select id="inv-patient" class="form-control" required></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Attending Doctor *</label>
+              <select id="inv-doctor" class="form-control" required onchange="setDoctorConsultationFee()"></select>
+            </div>
+          </div>
+
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:18px; margin-bottom:20px;">
+            <h4 style="color:#0A3871; font-size:0.95rem; margin-bottom:12px;">Itemized Billing Components (₹ INR)</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Consultation Fee</label>
+                <input type="number" id="inv-con-fee" class="form-control" value="850" oninput="App.calculateInvoiceTotals()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Pharmacy / Medicine Fee</label>
+                <input type="number" id="inv-med-fee" class="form-control" value="480" oninput="App.calculateInvoiceTotals()">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Diagnostic / Lab Fee</label>
+                <input type="number" id="inv-lab-fee" class="form-control" value="1200" oninput="App.calculateInvoiceTotals()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nursing & Procedure Fee</label>
+                <input type="number" id="inv-add-fee" class="form-control" value="250" oninput="App.calculateInvoiceTotals()">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Discount Percentage (%)</label>
+                <input type="number" id="inv-discount-pct" class="form-control" value="0" min="0" max="100" oninput="App.calculateInvoiceTotals()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">GST Tax Rate (%)</label>
+                <input type="number" id="inv-gst-pct" class="form-control" value="5" readonly style="background:#F1F5F9;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Billing Live Breakdown -->
+          <div style="background:#F0F9FF; border:1px solid #BAE6FD; border-radius:10px; padding:16px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.875rem;">
+              <span>Subtotal Amount:</span>
+              <strong id="inv-subtotal-val">₹2,780.00</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.875rem; color:#B45309;">
+              <span>Discount Applied:</span>
+              <strong id="inv-discount-val">₹0.00</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.875rem; color:#0284C7;">
+              <span>GST (5% Health Care SGST+CGST):</span>
+              <strong id="inv-gst-val">₹139.00</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-top:2px solid #0A3871; padding-top:8px; font-size:1.15rem; color:#0A3871; font-weight:800;">
+              <span>Grand Total:</span>
+              <span id="inv-grand-total-val">₹2,919.00</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('create-invoice-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Generate & Issue Invoice</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Invoice Print / Preview Modal -->
+  <div id="preview-inv-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width:850px;">
+      <div class="modal-header no-print">
+        <h3 style="color:#0A3871; margin:0;"><i class="fa-solid fa-receipt"></i> GST Healthcare Tax Invoice</h3>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-primary btn-sm" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Invoice</button>
+          <button class="btn btn-outline btn-sm" onclick="App.closeModal('preview-inv-modal')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="inv-print-content" class="printable-doc printable-area"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    let activeInvoices = [];
+    let doctorsList = [];
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const [patients, doctors] = await Promise.all([
+        API.getPatients(),
+        API.getDoctors()
+      ]);
+
+      doctorsList = doctors;
+      document.getElementById("inv-patient").innerHTML = patients.map(p => `<option value="${p.id}">${p.full_name} (${p.uhid})</option>`).join('');
+      document.getElementById("inv-doctor").innerHTML = doctors.map(d => `<option value="${d.id}" data-fee="${d.consultation_fee}">${d.full_name} - ${d.department}</option>`).join('');
+
+      App.calculateInvoiceTotals();
+      fetchInvoices();
+    });
+
+    function setDoctorConsultationFee() {
+      const select = document.getElementById("inv-doctor");
+      const fee = select.options[select.selectedIndex]?.getAttribute("data-fee") || 850;
+      document.getElementById("inv-con-fee").value = fee;
+      App.calculateInvoiceTotals();
+    }
+
+    async function fetchInvoices() {
+      activeInvoices = await API.getInvoices();
+      const tbody = document.getElementById("invoices-table-body");
+      document.getElementById("inv-total-badge").textContent = `${activeInvoices.length} Invoices`;
+
+      if (activeInvoices.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:24px;">No invoices generated.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = activeInvoices.map(inv => `
+        <tr>
+          <td><strong style="color:#0A3871;">${inv.invoice_no}</strong></td>
+          <td>${inv.invoice_date}</td>
+          <td>
+            <div style="font-weight:700;">${inv.patient_name}</div>
+            <div style="font-size:0.75rem; color:#64748B;">${inv.patient_uhid}</div>
+          </td>
+          <td>${inv.doctor_name || 'Hospital OPD'}</td>
+          <td>₹${(inv.subtotal || 0).toFixed(2)}</td>
+          <td>₹${(inv.tax_amount || 0).toFixed(2)}</td>
+          <td><strong style="color:#0A3871;">₹${(inv.total_amount || 0).toFixed(2)}</strong></td>
+          <td>
+            <span class="badge ${inv.payment_status === 'Paid' ? 'badge-success' : 'badge-warning'}">${inv.payment_status}</span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-primary" onclick="previewInvoice(${inv.id})"><i class="fa-solid fa-eye"></i> View / Print</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function handleSaveInvoice() {
+      const totals = App.calculateInvoiceTotals();
+      const patientId = document.getElementById("inv-patient").value;
+      const doctorId = document.getElementById("inv-doctor").value;
+
+      try {
+        const res = await API.createInvoice({
+          patient_id: parseInt(patientId),
+          doctor_id: parseInt(doctorId),
+          consultation_fee: parseFloat(document.getElementById("inv-con-fee").value),
+          medicine_fee: parseFloat(document.getElementById("inv-med-fee").value),
+          lab_fee: parseFloat(document.getElementById("inv-lab-fee").value),
+          additional_charges: parseFloat(document.getElementById("inv-add-fee").value),
+          discount_amount: totals.discountAmt,
+          tax_amount: totals.gstAmt,
+          total_amount: totals.grandTotal,
+          payment_status: "Paid",
+          payment_mode: "UPI / QR"
+        });
+
+        if (res.success) {
+          alert(`Tax Invoice Issued!\nInvoice Number: ${res.invoice_no}`);
+          App.closeModal('create-invoice-modal');
+          fetchInvoices();
+        }
+      } catch (err) {
+        alert("Invoice creation failed: " + err.message);
+      }
+    }
+
+    function previewInvoice(invId) {
+      const inv = activeInvoices.find(i => i.id === invId);
+      if (!inv) return;
+
+      const container = document.getElementById("inv-print-content");
+      container.innerHTML = `
+        <div class="doc-hospital-header">
+          <div>
+            <h2 style="color:#0A3871; margin:0; font-size:1.5rem;">MEDI TRACK MULTISPECIALITY HOSPITAL</h2>
+            <p style="font-size:0.8rem; color:#64748B; margin:2px 0;">No. 1, Hospital Road, 100 Feet Bypass, Vadapalani, Chennai - 600026</p>
+            <p style="font-size:0.8rem; color:#0A3871; font-weight:600;">GSTIN: 33AAACM1234F1Z8 | State: Tamil Nadu (33)</p>
+          </div>
+          <div style="text-align:right;">
+            <span class="badge badge-success" style="font-size:0.85rem;">GST TAX INVOICE</span>
+            <div style="font-weight:700; color:#0A3871; margin-top:4px;">${inv.invoice_no}</div>
+            <div style="font-size:0.8rem; color:#64748B;">Date: ${inv.invoice_date}</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; background:#F8FAFC; padding:14px 18px; border-radius:8px; margin-bottom:20px; font-size:0.875rem;">
+          <div>
+            <div><strong>Billed To:</strong> ${inv.patient_name}</div>
+            <div><strong>Patient UHID:</strong> ${inv.patient_uhid}</div>
+            <div><strong>Contact:</strong> ${inv.patient_phone || '+91 98400 00000'}</div>
+          </div>
+          <div>
+            <div><strong>Consulting Doctor:</strong> ${inv.doctor_name || 'General OPD'}</div>
+            <div><strong>Payment Mode:</strong> ${inv.payment_mode || 'UPI'}</div>
+            <div><strong>Payment Status:</strong> <span style="color:#059669; font-weight:bold;">${inv.payment_status}</span></div>
+          </div>
+        </div>
+
+        <table class="data-table" style="margin-bottom:20px;">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Description / SAC Code</th>
+              <th style="text-align:right;">Amount (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>OPD Specialist Consultation Fee [SAC: 999312]</td>
+              <td style="text-align:right;">₹${(inv.consultation_fee || 850).toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Pharmacy & Prescribed Medication Charges [HSN: 3004]</td>
+              <td style="text-align:right;">₹${(inv.medicine_fee || 480).toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Clinical Laboratory & Pathology Diagnostics [SAC: 999316]</td>
+              <td style="text-align:right;">₹${(inv.lab_fee || 1200).toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Nursing & Emergency Care Services [SAC: 999313]</td>
+              <td style="text-align:right;">₹${(inv.additional_charges || 250).toFixed(2)}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:20px; align-items:flex-start;">
+          <div style="background:#F0F9FF; border:1px solid #BAE6FD; padding:14px; border-radius:8px; text-align:center;">
+            <div style="font-size:0.75rem; font-weight:700; color:#0A3871; text-transform:uppercase; margin-bottom:6px;">Instant UPI QR Receipt</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=upi://pay?pa=meditrack@icici%26pn=MediTrackHospital%26am=${inv.total_amount}%26tn=${inv.invoice_no}" alt="UPI QR" style="width:110px; height:110px; margin:0 auto; display:block;">
+            <div style="font-size:0.7rem; color:#64748B; margin-top:4px;">Scan with GPay / PhonePe / Paytm</div>
+          </div>
+
+          <div style="background:#F8FAFC; padding:16px; border-radius:8px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.875rem;">
+              <span>Subtotal:</span>
+              <strong>₹${(inv.subtotal || 2780).toFixed(2)}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.875rem; color:#B45309;">
+              <span>Discount:</span>
+              <strong>-₹${(inv.discount_amount || 0).toFixed(2)}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.875rem; color:#0284C7;">
+              <span>GST (5% Healthcare CGST+SGST):</span>
+              <strong>₹${(inv.tax_amount || 139).toFixed(2)}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-top:2px solid #0A3871; padding-top:8px; font-size:1.2rem; color:#0A3871; font-weight:800;">
+              <span>Total Paid:</span>
+              <span>₹${(inv.total_amount || 2919).toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:36px; border-top:1px solid #E2E8F0; padding-top:16px;">
+          <div style="font-size:0.75rem; color:#64748B;">
+            Computer generated Tax Invoice. Valid under Section 31 of CGST Act.
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Courier New', monospace; font-weight:bold; color:#0A3871; margin-bottom:4px;">[ AUTHORIZED SIGNATORY ]</div>
+            <strong style="font-size:0.85rem; color:#0A3871;">Accounts Officer</strong>
+            <div style="font-size:0.75rem; color:#64748B;">MediTrack Hospital Chennai</div>
+          </div>
+        </div>
+      `;
+
+      App.openModal('preview-inv-modal');
+    }
+  </script>
+</body>
+</html>

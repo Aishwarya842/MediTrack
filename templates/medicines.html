@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pharmacy & Medicine Master – MEDI TRACK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="brand-titles">
+          <h2 style="font-size:1.15rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+          <span style="font-size:0.68rem;">Hospital Management</span>
+        </div>
+      </div>
+      <div class="sidebar-user-card" id="portal-user-meta"></div>
+      <ul class="sidebar-nav">
+        <li><a href="/dashboard" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="/patients" class="sidebar-link"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li><a href="/doctors" class="sidebar-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+        <li><a href="/appointments" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="/consultations" class="sidebar-link"><i class="fa-solid fa-stethoscope"></i> Consultations</a></li>
+        <li><a href="/prescriptions" class="sidebar-link"><i class="fa-solid fa-prescription"></i> Prescriptions</a></li>
+        <li><a href="/medicines" class="sidebar-link active"><i class="fa-solid fa-pills"></i> Medicine Master</a></li>
+        <li><a href="/invoices" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a></li>
+        <li><a href="/payments" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Payments</a></li>
+        <li><a href="/analytics" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+        <li><a href="/reports" class="sidebar-link"><i class="fa-solid fa-file-lines"></i> Reports & Export</a></li>
+        <li style="margin-top:auto; padding-top:16px; border-top:1px solid #E2E8F0;">
+          <a href="#" onclick="App.logout(); return false;" class="sidebar-link" style="color:#E11D48;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="portal-main-content">
+      <header class="portal-topbar">
+        <div>
+          <h2 style="font-size:1.25rem; color:#0A3871; margin:0;">Hospital Pharmacy & Medicine Master</h2>
+          <span style="font-size:0.8rem; color:#64748B;">Centralized Drug Formulary, Batch Codes, HSN Tax & Inventory Tracking</span>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="App.openModal('add-med-modal')"><i class="fa-solid fa-plus"></i> Add New Medicine</button>
+        </div>
+      </header>
+
+      <div class="portal-page-body">
+        <div class="card">
+          <div class="card-header">
+            <div style="display:flex; gap:12px; align-items:center;">
+              <input type="text" id="med-filter-search" class="form-control" placeholder="Search drug name or generic..." style="width:300px;" oninput="fetchMedicines(this.value)">
+              <select id="med-cat-filter" class="form-control" style="width:180px;" onchange="fetchMedicines()">
+                <option value="">All Categories</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Antibiotics">Antibiotics</option>
+                <option value="Analgesics">Analgesics</option>
+                <option value="Antidiabetic">Antidiabetic</option>
+                <option value="Gastrointestinal">Gastrointestinal</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Respiratory">Respiratory</option>
+              </select>
+            </div>
+            <span class="badge badge-info" id="med-total-badge">Medicines</span>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Brand / Medicine Name</th>
+                    <th>Generic Molecule</th>
+                    <th>Category</th>
+                    <th>Form & Strength</th>
+                    <th>Manufacturer</th>
+                    <th>Batch No.</th>
+                    <th>Expiry Date</th>
+                    <th>Unit Price (₹)</th>
+                    <th>Stock Qty</th>
+                  </tr>
+                </thead>
+                <tbody id="med-table-body">
+                  <tr><td colspan="9" style="text-align:center; padding:24px;">Loading pharmacy inventory...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Medicine Modal -->
+  <div id="add-med-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="color:#0A3871; margin:0;"><i class="fa-solid fa-capsules"></i> Add Medicine to Master Formulary</h3>
+        <button class="btn btn-sm btn-outline" onclick="App.closeModal('add-med-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="add-med-form" onsubmit="event.preventDefault(); handleAddMedicine();">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Brand / Medicine Name *</label>
+              <input type="text" id="m-name" class="form-control" placeholder="e.g. Augmentin 625 Duo" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Generic Formula *</label>
+              <input type="text" id="m-generic" class="form-control" placeholder="e.g. Amoxicillin + Clavulanic Acid" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select id="m-cat" class="form-control">
+                <option value="Antibiotics">Antibiotics</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Analgesics">Analgesics</option>
+                <option value="Antidiabetic">Antidiabetic</option>
+                <option value="Gastrointestinal">Gastrointestinal</option>
+                <option value="Respiratory">Respiratory</option>
+                <option value="Neurology">Neurology</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Dosage Form</label>
+              <select id="m-form" class="form-control">
+                <option value="Tablet">Tablet</option>
+                <option value="Capsule">Capsule</option>
+                <option value="Syrup">Syrup</option>
+                <option value="Injection">Injection</option>
+                <option value="Ointment">Ointment</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Strength</label>
+              <input type="text" id="m-strength" class="form-control" placeholder="e.g. 625mg" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Manufacturer</label>
+              <input type="text" id="m-mfg" class="form-control" placeholder="e.g. GSK / Sun Pharma / Cipla" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Unit Price (₹ MRP) *</label>
+              <input type="number" step="0.01" id="m-price" class="form-control" placeholder="18.50" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Opening Stock Qty *</label>
+              <input type="number" id="m-stock" class="form-control" placeholder="100" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Batch Code</label>
+              <input type="text" id="m-batch" class="form-control" placeholder="AUG-2026-X1" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Expiry Date</label>
+              <input type="date" id="m-exp" class="form-control" value="2027-12-31" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('add-med-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Medicine Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => fetchMedicines());
+
+    async function fetchMedicines(query = "") {
+      const cat = document.getElementById("med-cat-filter").value;
+      const meds = await API.searchMedicines(query, cat);
+      const tbody = document.getElementById("med-table-body");
+      document.getElementById("med-total-badge").textContent = `${meds.length} Formulations`;
+
+      if (meds.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:24px;">No medicines matching criteria.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = meds.map(m => `
+        <tr>
+          <td><strong style="color:#0A3871;">${m.medicine_name}</strong></td>
+          <td><span style="font-size:0.8rem; color:#64748B;">${m.generic_name}</span></td>
+          <td><span class="badge badge-info">${m.category}</span></td>
+          <td>${m.form} (${m.strength})</td>
+          <td>${m.manufacturer}</td>
+          <td><code>${m.batch_number}</code></td>
+          <td>${m.expiry_date}</td>
+          <td><strong style="color:#059669;">₹${m.unit_price.toFixed(2)}</strong></td>
+          <td>
+            <span class="badge ${m.stock_quantity < 30 ? 'badge-danger' : 'badge-success'}">${m.stock_quantity} Units</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function handleAddMedicine() {
+      const data = {
+        medicine_name: document.getElementById("m-name").value,
+        generic_name: document.getElementById("m-generic").value,
+        category: document.getElementById("m-cat").value,
+        form: document.getElementById("m-form").value,
+        strength: document.getElementById("m-strength").value,
+        manufacturer: document.getElementById("m-mfg").value,
+        unit_price: parseFloat(document.getElementById("m-price").value),
+        stock_quantity: parseInt(document.getElementById("m-stock").value),
+        batch_number: document.getElementById("m-batch").value,
+        expiry_date: document.getElementById("m-exp").value,
+        hsn_code: "3004"
+      };
+
+      try {
+        const res = await API.createMedicine(data);
+        if (res.success) {
+          alert("Medicine added to formulary successfully!");
+          App.closeModal('add-med-modal');
+          document.getElementById("add-med-form").reset();
+          fetchMedicines();
+        }
+      } catch (err) {
+        alert("Error adding medicine: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports & Audit Logs – MEDI TRACK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon-box" style="width:36px; height:36px; font-size:1.1rem;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="brand-titles">
+          <h2 style="font-size:1.15rem; color:#0A3871; margin:0;">MEDI TRACK</h2>
+          <span style="font-size:0.68rem;">Hospital Management</span>
+        </div>
+      </div>
+      <div class="sidebar-user-card" id="portal-user-meta"></div>
+      <ul class="sidebar-nav">
+        <li><a href="/dashboard" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="/patients" class="sidebar-link"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li><a href="/doctors" class="sidebar-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+        <li><a href="/appointments" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="/consultations" class="sidebar-link"><i class="fa-solid fa-stethoscope"></i> Consultations</a></li>
+        <li><a href="/prescriptions" class="sidebar-link"><i class="fa-solid fa-prescription"></i> Prescriptions</a></li>
+        <li><a href="/medicines" class="sidebar-link"><i class="fa-solid fa-pills"></i> Medicine Master</a></li>
+        <li><a href="/invoices" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a></li>
+        <li><a href="/payments" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Payments</a></li>
+        <li><a href="/analytics" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+        <li><a href="/reports" class="sidebar-link active"><i class="fa-solid fa-file-lines"></i> Reports & Export</a></li>
+        <li style="margin-top:auto; padding-top:16px; border-top:1px solid #E2E8F0;">
+          <a href="#" onclick="App.logout(); return false;" class="sidebar-link" style="color:#E11D48;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="portal-main-content">
+      <header class="portal-topbar">
+        <div>
+          <h2 style="font-size:1.25rem; color:#0A3871; margin:0;">Hospital Administrative Reports & NABH Audit Logs</h2>
+          <span style="font-size:0.8rem; color:#64748B;">CSV Spreadsheet Export & Real-Time Security Audit Trails</span>
+        </div>
+      </header>
+
+      <div class="portal-page-body">
+        
+        <!-- Reports Export Cards -->
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:20px; margin-bottom:32px;">
+          <div class="card" style="margin:0; padding:24px; text-align:center;">
+            <div style="font-size:2rem; color:#0A3871; margin-bottom:10px;"><i class="fa-solid fa-hospital-user"></i></div>
+            <h4 style="font-size:1.1rem; margin-bottom:6px;">Patient Master Registry</h4>
+            <p style="font-size:0.8rem; color:#64748B; margin-bottom:16px;">Full directory of registered UHIDs, blood groups, and medical histories.</p>
+            <button class="btn btn-outline btn-sm" onclick="exportReport('patients', 'csv')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+          </div>
+
+          <div class="card" style="margin:0; padding:24px; text-align:center;">
+            <div style="font-size:2rem; color:#059669; margin-bottom:10px;"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <h4 style="font-size:1.1rem; margin-bottom:6px;">Financial Revenue Report</h4>
+            <p style="font-size:0.8rem; color:#64748B; margin-bottom:16px;">Itemized collections, GST tax breakdown, and doctor consultation charges.</p>
+            <button class="btn btn-outline btn-sm" onclick="exportReport('revenue', 'csv')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+          </div>
+
+          <div class="card" style="margin:0; padding:24px; text-align:center;">
+            <div style="font-size:2rem; color:#0284C7; margin-bottom:10px;"><i class="fa-solid fa-pills"></i></div>
+            <h4 style="font-size:1.1rem; margin-bottom:6px;">Pharmacy Stock & Dispense</h4>
+            <p style="font-size:0.8rem; color:#64748B; margin-bottom:16px;">Current medicine stock levels, batch numbers, and expiry alerts.</p>
+            <button class="btn btn-outline btn-sm" onclick="exportReport('medicines', 'csv')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+          </div>
+        </div>
+
+        <!-- Real-Time Audit Logs Table -->
+        <div class="card" id="audit">
+          <div class="card-header">
+            <h3>NABH Compliance Security & Audit Trails</h3>
+            <span class="badge badge-info">Real-time Activity Log</span>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>User / Actor</th>
+                    <th>Action Performed</th>
+                    <th>Module / Entity</th>
+                    <th>IP Address & Host</th>
+                    <th>Activity Details</th>
+                  </tr>
+                </thead>
+                <tbody id="audit-table-body">
+                  <tr><td colspan="6" style="text-align:center; padding:24px;">Loading security audit logs...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      fetchAuditLogs();
+    });
+
+    async function fetchAuditLogs() {
+      try {
+        const logs = await API.getAuditLogs();
+        const tbody = document.getElementById("audit-table-body");
+        if (!logs || logs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px;">No audit trail events found.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = logs.map(l => `
+          <tr>
+            <td><code>${l.created_at}</code></td>
+            <td><strong>${l.user_id ? `User #${l.user_id}` : 'System / Portal'}</strong></td>
+            <td><span class="badge badge-info">${l.action}</span></td>
+            <td>${l.entity_type}</td>
+            <td><small>${l.ip_address || '127.0.0.1'}</small></td>
+            <td>${l.details || 'System operation executed.'}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error("Audit log load error:", err);
+      }
+    }
+
+    async function exportReport(type, format) {
+      if (type === 'patients') {
+        const data = await API.getPatients();
+        downloadCSV(data, 'meditrack_patients_registry.csv');
+      } else if (type === 'revenue') {
+        const data = await API.getInvoices();
+        downloadCSV(data, 'meditrack_financial_revenue_report.csv');
+      } else if (type === 'medicines') {
+        const data = await API.searchMedicines();
+        downloadCSV(data, 'meditrack_pharmacy_inventory_report.csv');
+      }
+    }
+
+    function downloadCSV(dataArray, filename) {
+      if (!dataArray || !dataArray.length) {
+        alert("No data available to export.");
+        return;
+      }
+      const headers = Object.keys(dataArray[0]);
+      const csvRows = [];
+      csvRows.push(headers.join(','));
+      for (const row of dataArray) {
+        const values = headers.map(header => {
+          const escaped = ('' + (row[header] || '')).replace(/"/g, '\\"');
+          return `"${escaped}"`;
+        });
+        csvRows.push(values.join(','));
+      }
+      const csvString = csvRows.join('\n');
+      const blob = new Blob([csvString], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('hidden', '');
+      a.setAttribute('href', url);
+      a.setAttribute('download', filename);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>
