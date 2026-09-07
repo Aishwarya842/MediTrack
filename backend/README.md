@@ -46,7 +46,7 @@ A full-stack enterprise hospital management portal for Indian multispeciality ho
 | **Backend (Flask)** | Python 3.10+, Flask 3.0+, Flask-JWT-Extended, Flask-CORS, Werkzeug |
 | **Backend (FastAPI)** | Python 3.10+, FastAPI 0.110, SQLAlchemy 2.0, Pydantic v2, Uvicorn |
 | **Database** | SQLite (zero-config default) or MySQL 8.0+ / MariaDB |
-|
+
 
 ---
 
@@ -310,10 +310,10 @@ MYSQL_DB=meditrack_db
 ## Test Credentials
 
 ### Flask App
-| Role | Username | Email | Password |
-|------|----------|-------|----------|
-| Admin | `admin` | `Admin@123` |
-| Doctor | `dr_kavitha` | 
+| Role  | Password |
+|------|----------|
+| Admin | `admin` | 
+| Doctor | `through name` | 
 | Patient | `mobile number`|
 
 ### FastAPI Backend
