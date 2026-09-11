@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * MEDI TRACK – Integrated Patient Care Management System
+ * CAREHUB – Integrated Patient Care Management System
  * REST API Client (Fetch API & Storage Layer)
  * =============================================================================
  */
@@ -8,22 +8,22 @@
 const API = {
   // Base token helper
   getToken() {
-    return localStorage.getItem("meditrack_token") || "";
+    return localStorage.getItem("carehub_token") || "";
   },
 
   getCurrentUser() {
-    const raw = localStorage.getItem("meditrack_user");
+    const raw = localStorage.getItem("carehub_user");
     return raw ? JSON.parse(raw) : null;
   },
 
   setAuth(token, user) {
-    localStorage.setItem("meditrack_token", token);
-    localStorage.setItem("meditrack_user", JSON.stringify(user));
+    localStorage.setItem("carehub_token", token);
+    localStorage.setItem("carehub_user", JSON.stringify(user));
   },
 
   clearAuth() {
-    localStorage.removeItem("meditrack_token");
-    localStorage.removeItem("meditrack_user");
+    localStorage.removeItem("carehub_token");
+    localStorage.removeItem("carehub_user");
   },
 
   async request(endpoint, options = {}) {

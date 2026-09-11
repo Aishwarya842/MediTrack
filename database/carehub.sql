@@ -1,13 +1,13 @@
 -- ==========================================================
--- MEDI TRACK – Integrated Patient Care Management System
--- Database: meditrack_db
+-- CAREHUB – Integrated Patient Care Management System
+-- Database: carehub_db
 -- Standard: MySQL 8.0+ / MariaDB 10.4+
 -- Location Context: Chennai, Tamil Nadu, India
 -- ==========================================================
 
-DROP DATABASE IF EXISTS `meditrack_db`;
-CREATE DATABASE `meditrack_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `meditrack_db`;
+DROP DATABASE IF EXISTS `carehub_db`;
+CREATE DATABASE `carehub_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `carehub_db`;
 
 -- ----------------------------------------------------------
 -- 1. USERS TABLE
@@ -33,7 +33,7 @@ CREATE TABLE `users` (
 CREATE TABLE `patients` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT NULL,
-  `uhid` VARCHAR(20) NOT NULL UNIQUE COMMENT 'Unique Hospital Identification Number (e.g. MEDI-2026-0001)',
+  `uhid` VARCHAR(20) NOT NULL UNIQUE COMMENT 'Unique Hospital Identification Number (e.g. CH-2026-0001)',
   `full_name` VARCHAR(120) NOT NULL,
   `date_of_birth` DATE NOT NULL,
   `age` INT NOT NULL,
@@ -308,31 +308,31 @@ CREATE TABLE `audit_logs` (
 
 -- 1. SEED USERS
 INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `role`, `full_name`, `phone`, `status`) VALUES
-(1, 'admin', 'admin@meditrack.in', 'pbkdf2:sha256:600000$meditrack$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'ADMIN', 'Dr. Sundaramurthy Iyer (Medical Director)', '+91-98401-22334', 'ACTIVE'),
-(2, 'dr_kavitha', 'kavitha.cardio@meditrack.in', 'pbkdf2:sha256:600000$meditrack$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'DOCTOR', 'Dr. Kavitha Ramanathan, MD, DM (Cardiology)', '+91-98402-33445', 'ACTIVE'),
-(3, 'dr_aravind', 'aravind.neuro@meditrack.in', 'pbkdf2:sha256:600000$meditrack$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'DOCTOR', 'Dr. Aravind Krishnan, M.Ch (Neuro Surgery)', '+91-98403-44556', 'ACTIVE'),
-(4, 'dr_meenakshi', 'meenakshi.obgyn@meditrack.in', 'pbkdf2:sha256:600000$meditrack$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'DOCTOR', 'Dr. Meenakshi Sundaram, MS, DGO (OB/GYN)', '+91-98404-55667', 'ACTIVE'),
-(5, 'patient_rajesh', 'rajesh.sharma@gmail.com', 'pbkdf2:sha256:600000$meditrack$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'PATIENT', 'Rajesh Kumar Sharma', '+91-94440-11223', 'ACTIVE');
+(1, 'admin', 'admin@carehub.in', 'pbkdf2:sha256:600000$carehub$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'ADMIN', 'Dr. Sundaramurthy Iyer (Medical Director)', '+91-98401-22334', 'ACTIVE'),
+(2, 'dr_kavitha', 'kavitha.cardio@carehub.in', 'pbkdf2:sha256:600000$carehub$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'DOCTOR', 'Dr. Kavitha Ramanathan, MD, DM (Cardiology)', '+91-98402-33445', 'ACTIVE'),
+(3, 'dr_aravind', 'aravind.neuro@carehub.in', 'pbkdf2:sha256:600000$carehub$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'DOCTOR', 'Dr. Aravind Krishnan, M.Ch (Neuro Surgery)', '+91-98403-44556', 'ACTIVE'),
+(4, 'dr_meenakshi', 'meenakshi.obgyn@carehub.in', 'pbkdf2:sha256:600000$carehub$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'DOCTOR', 'Dr. Meenakshi Sundaram, MS, DGO (OB/GYN)', '+91-98404-55667', 'ACTIVE'),
+(5, 'patient_rajesh', 'rajesh.sharma@gmail.com', 'pbkdf2:sha256:600000$carehub$9e34e56598c8c5c7d5c95a05b38d3ad48e9c60e5cfbe673b1856cf0998f451f7', 'PATIENT', 'Rajesh Kumar Sharma', '+91-94440-11223', 'ACTIVE');
 
 -- 2. SEED DOCTORS
 INSERT INTO `doctors` (`id`, `user_id`, `doc_reg_no`, `full_name`, `department`, `designation`, `qualification`, `experience_years`, `consultation_fee`, `phone`, `email`, `room_no`, `available_days`, `available_time_slots`, `rating`, `bio`) VALUES
-(1, 2, 'TNMC-44829', 'Dr. Kavitha Ramanathan', 'Cardiology', 'Senior Consultant Interventional Cardiologist', 'MBBS, MD (Gen Med), DM (Cardiology), FACC', 16, 850.00, '+91-98402-33445', 'kavitha.cardio@meditrack.in', 'OPD Suite 101', 'Mon,Tue,Wed,Thu,Fri,Sat', '09:00 AM - 01:00 PM, 05:00 PM - 08:30 PM', 4.9, 'Expert in complex coronary angioplasty, heart failure management, and preventive cardiac rehabilitation.'),
-(2, 3, 'TNMC-38102', 'Dr. Aravind Krishnan', 'Neurology', 'Chief Neurosurgeon & Spine Specialist', 'MBBS, MS (General Surgery), M.Ch (Neuro)', 18, 950.00, '+91-98403-44556', 'aravind.neuro@meditrack.in', 'OPD Suite 104', 'Mon,Tue,Thu,Fri', '10:00 AM - 02:00 PM, 06:00 PM - 08:30 PM', 4.9, 'Pioneer in minimally invasive spine surgery, brain tumour resection, and stroke critical intervention.'),
-(3, 4, 'TNMC-51928', 'Dr. Meenakshi Sundaram', 'Obstetrics & Gynaecology', 'Senior Consultant Obstetrician & Laparoscopic Surgeon', 'MBBS, MS (OBG), DGO, FICOG', 14, 750.00, '+91-98404-55667', 'meenakshi.obgyn@meditrack.in', 'OPD Suite 202', 'Mon,Wed,Thu,Fri,Sat', '09:30 AM - 01:30 PM, 04:30 PM - 07:30 PM', 4.8, 'Specialized in high-risk pregnancy care, painless normal deliveries, and advanced gynaecologic laparoscopy.'),
-(4, NULL, 'TNMC-29401', 'Dr. Suresh Balaji', 'Orthopaedics', 'Senior Joint Replacement & Arthroscopy Surgeon', 'MBBS, MS (Ortho), DNB (Ortho), MCh', 20, 800.00, '+91-98405-66778', 'suresh.ortho@meditrack.in', 'OPD Suite 108', 'Mon,Tue,Wed,Fri,Sat', '09:00 AM - 01:00 PM', 4.9, 'Over 5,000 successful robotic knee and hip replacements and sports ligament reconstructions.'),
-(5, NULL, 'TNMC-60293', 'Dr. Preethi Venkatesh', 'Paediatrics', 'Consultant Paediatrician & Neonatologist', 'MBBS, MD (Paediatrics), Fellowship in Neonatology', 11, 650.00, '+91-98406-77889', 'preethi.paed@meditrack.in', 'OPD Suite 205', 'Mon,Tue,Wed,Thu,Fri,Sat', '10:00 AM - 01:00 PM, 05:00 PM - 08:00 PM', 4.9, 'Dedicated paediatric critical care, developmental assessments, and comprehensive child immunization.'),
-(6, NULL, 'TNMC-41804', 'Dr. Karthik Narayanan', 'Nephrology & Urology', 'Senior Consultant Nephrologist & Renal Transplant Specialist', 'MBBS, MD (Med), DM (Nephro)', 15, 850.00, '+91-98407-88990', 'karthik.nephro@meditrack.in', 'OPD Suite 112', 'Tue,Thu,Sat', '09:00 AM - 02:00 PM', 4.8, 'Expert in acute & chronic kidney disease, automated peritoneal dialysis, and live donor renal transplants.'),
-(7, NULL, 'TNMC-33719', 'Dr. Anandhi Rajasekar', 'Gastroenterology', 'Consultant Medical Gastroenterologist', 'MBBS, MD, DM (Gastro)', 13, 800.00, '+91-98408-99001', 'anandhi.gastro@meditrack.in', 'OPD Suite 115', 'Mon,Wed,Fri', '10:00 AM - 02:00 PM', 4.8, 'Advanced therapeutic endoscopy, ERCP, fatty liver reversal protocols, and IBD clinical management.'),
-(8, NULL, 'TNMC-55912', 'Dr. Vijay Anand', 'Pulmonology', 'Consultant Pulmonologist & Chest Physician', 'MBBS, DTCD, DNB (Resp Diseases)', 12, 700.00, '+91-98409-00112', 'vijay.pulmo@meditrack.in', 'OPD Suite 118', 'Mon,Tue,Thu,Fri,Sat', '09:00 AM - 01:00 PM', 4.7, 'Specialist in bronchial asthma, allergic rhinitis, COPD, sleep apnea studies, and post-viral pulmonary fibrosis.');
+(1, 2, 'TNMC-44829', 'Dr. Kavitha Ramanathan', 'Cardiology', 'Senior Consultant Interventional Cardiologist', 'MBBS, MD (Gen Med), DM (Cardiology), FACC', 16, 850.00, '+91-98402-33445', 'kavitha.cardio@carehub.in', 'OPD Suite 101', 'Mon,Tue,Wed,Thu,Fri,Sat', '09:00 AM - 01:00 PM, 05:00 PM - 08:30 PM', 4.9, 'Expert in complex coronary angioplasty, heart failure management, and preventive cardiac rehabilitation.'),
+(2, 3, 'TNMC-38102', 'Dr. Aravind Krishnan', 'Neurology', 'Chief Neurosurgeon & Spine Specialist', 'MBBS, MS (General Surgery), M.Ch (Neuro)', 18, 950.00, '+91-98403-44556', 'aravind.neuro@carehub.in', 'OPD Suite 104', 'Mon,Tue,Thu,Fri', '10:00 AM - 02:00 PM, 06:00 PM - 08:30 PM', 4.9, 'Pioneer in minimally invasive spine surgery, brain tumour resection, and stroke critical intervention.'),
+(3, 4, 'TNMC-51928', 'Dr. Meenakshi Sundaram', 'Obstetrics & Gynaecology', 'Senior Consultant Obstetrician & Laparoscopic Surgeon', 'MBBS, MS (OBG), DGO, FICOG', 14, 750.00, '+91-98404-55667', 'meenakshi.obgyn@carehub.in', 'OPD Suite 202', 'Mon,Wed,Thu,Fri,Sat', '09:30 AM - 01:30 PM, 04:30 PM - 07:30 PM', 4.8, 'Specialized in high-risk pregnancy care, painless normal deliveries, and advanced gynaecologic laparoscopy.'),
+(4, NULL, 'TNMC-29401', 'Dr. Suresh Balaji', 'Orthopaedics', 'Senior Joint Replacement & Arthroscopy Surgeon', 'MBBS, MS (Ortho), DNB (Ortho), MCh', 20, 800.00, '+91-98405-66778', 'suresh.ortho@carehub.in', 'OPD Suite 108', 'Mon,Tue,Wed,Fri,Sat', '09:00 AM - 01:00 PM', 4.9, 'Over 5,000 successful robotic knee and hip replacements and sports ligament reconstructions.'),
+(5, NULL, 'TNMC-60293', 'Dr. Preethi Venkatesh', 'Paediatrics', 'Consultant Paediatrician & Neonatologist', 'MBBS, MD (Paediatrics), Fellowship in Neonatology', 11, 650.00, '+91-98406-77889', 'preethi.paed@carehub.in', 'OPD Suite 205', 'Mon,Tue,Wed,Thu,Fri,Sat', '10:00 AM - 01:00 PM, 05:00 PM - 08:00 PM', 4.9, 'Dedicated paediatric critical care, developmental assessments, and comprehensive child immunization.'),
+(6, NULL, 'TNMC-41804', 'Dr. Karthik Narayanan', 'Nephrology & Urology', 'Senior Consultant Nephrologist & Renal Transplant Specialist', 'MBBS, MD (Med), DM (Nephro)', 15, 850.00, '+91-98407-88990', 'karthik.nephro@carehub.in', 'OPD Suite 112', 'Tue,Thu,Sat', '09:00 AM - 02:00 PM', 4.8, 'Expert in acute & chronic kidney disease, automated peritoneal dialysis, and live donor renal transplants.'),
+(7, NULL, 'TNMC-33719', 'Dr. Anandhi Rajasekar', 'Gastroenterology', 'Consultant Medical Gastroenterologist', 'MBBS, MD, DM (Gastro)', 13, 800.00, '+91-98408-99001', 'anandhi.gastro@carehub.in', 'OPD Suite 115', 'Mon,Wed,Fri', '10:00 AM - 02:00 PM', 4.8, 'Advanced therapeutic endoscopy, ERCP, fatty liver reversal protocols, and IBD clinical management.'),
+(8, NULL, 'TNMC-55912', 'Dr. Vijay Anand', 'Pulmonology', 'Consultant Pulmonologist & Chest Physician', 'MBBS, DTCD, DNB (Resp Diseases)', 12, 700.00, '+91-98409-00112', 'vijay.pulmo@carehub.in', 'OPD Suite 118', 'Mon,Tue,Thu,Fri,Sat', '09:00 AM - 01:00 PM', 4.7, 'Specialist in bronchial asthma, allergic rhinitis, COPD, sleep apnea studies, and post-viral pulmonary fibrosis.');
 
 -- 3. SEED PATIENTS
 INSERT INTO `patients` (`id`, `user_id`, `uhid`, `full_name`, `date_of_birth`, `age`, `gender`, `blood_group`, `phone`, `email`, `aadhar_no`, `address`, `city`, `state`, `pincode`, `emergency_contact_name`, `emergency_contact_phone`, `allergies`, `medical_history`) VALUES
-(1, 5, 'MEDI-2026-0001', 'Rajesh Kumar Sharma', '1982-05-14', 44, 'Male', 'O+', '+91-94440-11223', 'rajesh.sharma@gmail.com', '7891-2345-6789', '42/1, 2nd Main Road, Anna Nagar West', 'Chennai', 'Tamil Nadu', '600040', 'Sunita Sharma (Spouse)', '+91-94440-11224', 'Penicillin, Sulfa drugs', 'Hypertension diagnosed 2021, Type 2 Diabetes Mellitus under Metformin control.'),
-(2, NULL, 'MEDI-2026-0002', 'Lakshmi Narayanan', '1968-11-23', 57, 'Female', 'B+', '+91-98840-55667', 'lakshmi.n68@yahoo.com', '4521-8932-1049', '18, G.N. Chetty Road, T. Nagar', 'Chennai', 'Tamil Nadu', '600017', 'Narayanan S. (Son)', '+91-98840-55668', 'No known drug allergies', 'Osteoarthritis bilateral knees, Mild Dyslipidemia.'),
-(3, NULL, 'MEDI-2026-0003', 'Mohamed Farooq', '1990-08-19', 35, 'Male', 'A+', '+91-97900-22331', 'farooq.eng@gmail.com', '6734-9012-3456', '88, Triplicane High Road', 'Chennai', 'Tamil Nadu', '600005', 'Ayesha Farooq (Sister)', '+91-97900-22332', 'NSAIDs (Causes Gastric Ulceration)', 'Acid Peptic Disease, Occasional Migraine.'),
-(4, NULL, 'MEDI-2026-0004', 'Ananya Deshmukh', '1998-02-10', 28, 'Female', 'AB+', '+91-96001-44552', 'ananya.d@outlook.com', '9012-3456-7890', '12/4, Velachery Bypass Road', 'Chennai', 'Tamil Nadu', '600042', 'Rohan Deshmukh (Husband)', '+91-96001-44553', 'None', 'First Trimester Antenatal Care (Gravida 1, Para 0).'),
-(5, NULL, 'MEDI-2026-0005', 'Master Harish Venkatesh', '2019-07-04', 7, 'Male', 'O+', '+91-94450-88991', 'venkatesh.k@gmail.com', '3345-6789-0123', '27, South Mada Street, Mylapore', 'Chennai', 'Tamil Nadu', '600004', 'Venkatesh K (Father)', '+91-94450-88991', 'Dust mite allergy', 'Childhood Allergic Bronchitis, Vaccinations up-to-date.'),
-(6, NULL, 'MEDI-2026-0006', 'Sivakumar Ramasamy', '1959-03-12', 67, 'Male', 'A-', '+91-98410-66778', 'siva.ramasamy@gmail.com', '8812-3490-5511', '55, 100 Feet Road, Vadapalani', 'Chennai', 'Tamil Nadu', '600026', 'Meena Sivakumar (Wife)', '+91-98410-66779', 'Aspirin allergy', 'Post Coronary Angioplasty (2023), Chronic Kidney Disease Stage 2.');
+(1, 5, 'CH-2026-0001', 'Rajesh Kumar Sharma', '1982-05-14', 44, 'Male', 'O+', '+91-94440-11223', 'rajesh.sharma@gmail.com', '7891-2345-6789', '42/1, 2nd Main Road, Anna Nagar West', 'Chennai', 'Tamil Nadu', '600040', 'Sunita Sharma (Spouse)', '+91-94440-11224', 'Penicillin, Sulfa drugs', 'Hypertension diagnosed 2021, Type 2 Diabetes Mellitus under Metformin control.'),
+(2, NULL, 'CH-2026-0002', 'Lakshmi Narayanan', '1968-11-23', 57, 'Female', 'B+', '+91-98840-55667', 'lakshmi.n68@yahoo.com', '4521-8932-1049', '18, G.N. Chetty Road, T. Nagar', 'Chennai', 'Tamil Nadu', '600017', 'Narayanan S. (Son)', '+91-98840-55668', 'No known drug allergies', 'Osteoarthritis bilateral knees, Mild Dyslipidemia.'),
+(3, NULL, 'CH-2026-0003', 'Mohamed Farooq', '1990-08-19', 35, 'Male', 'A+', '+91-97900-22331', 'farooq.eng@gmail.com', '6734-9012-3456', '88, Triplicane High Road', 'Chennai', 'Tamil Nadu', '600005', 'Ayesha Farooq (Sister)', '+91-97900-22332', 'NSAIDs (Causes Gastric Ulceration)', 'Acid Peptic Disease, Occasional Migraine.'),
+(4, NULL, 'CH-2026-0004', 'Ananya Deshmukh', '1998-02-10', 28, 'Female', 'AB+', '+91-96001-44552', 'ananya.d@outlook.com', '9012-3456-7890', '12/4, Velachery Bypass Road', 'Chennai', 'Tamil Nadu', '600042', 'Rohan Deshmukh (Husband)', '+91-96001-44553', 'None', 'First Trimester Antenatal Care (Gravida 1, Para 0).'),
+(5, NULL, 'CH-2026-0005', 'Master Harish Venkatesh', '2019-07-04', 7, 'Male', 'O+', '+91-94450-88991', 'venkatesh.k@gmail.com', '3345-6789-0123', '27, South Mada Street, Mylapore', 'Chennai', 'Tamil Nadu', '600004', 'Venkatesh K (Father)', '+91-94450-88991', 'Dust mite allergy', 'Childhood Allergic Bronchitis, Vaccinations up-to-date.'),
+(6, NULL, 'CH-2026-0006', 'Sivakumar Ramasamy', '1959-03-12', 67, 'Male', 'A-', '+91-98410-66778', 'siva.ramasamy@gmail.com', '8812-3490-5511', '55, 100 Feet Road, Vadapalani', 'Chennai', 'Tamil Nadu', '600026', 'Meena Sivakumar (Wife)', '+91-98410-66779', 'Aspirin allergy', 'Post Coronary Angioplasty (2023), Chronic Kidney Disease Stage 2.');
 
 -- 4. SEED MEDICINES (Indian Pharma Formulations with full spectrum)
 INSERT INTO `medicines` (`id`, `medicine_name`, `generic_name`, `brand_name`, `category`, `manufacturer`, `strength`, `form`, `unit_price`, `stock_quantity`, `reorder_level`, `description`) VALUES
@@ -409,14 +409,14 @@ INSERT INTO `payments` (`id`, `payment_no`, `invoice_id`, `patient_id`, `amount_
 -- 12. SEED NOTIFICATIONS
 INSERT INTO `notifications` (`id`, `user_id`, `title`, `message`, `notification_type`, `is_read`) VALUES
 (1, 1, 'Pharmacy Stock Alert', 'Low stock alert: Inj. Tramadol 100mg has reached 120 units (Reorder threshold: 30).', 'Inventory', FALSE),
-(2, 2, 'New Patient Appointment', 'Appointment Confirmed: Rajesh Kumar Sharma (UHID: MEDI-2026-0001) for Cardiology OPD at 10:00 AM.', 'Appointment', TRUE),
+(2, 2, 'New Patient Appointment', 'Appointment Confirmed: Rajesh Kumar Sharma (UHID: CH-2026-0001) for Cardiology OPD at 10:00 AM.', 'Appointment', TRUE),
 (3, 5, 'Prescription Ready for Download', 'Dr. Kavitha Ramanathan has issued your digital prescription (RX-2026-9001). You can view and download the PDF in your portal.', 'Prescription', FALSE),
 (4, 5, 'Payment Receipt Generated', 'Payment of ₹2,339.14 for Invoice INV-2026-7001 was successful. Reference: UPI/RAZORPAY/9444011223@okaxis.', 'Invoice', TRUE);
 
 -- 13. SEED AUDIT LOGS
 INSERT INTO `audit_logs` (`id`, `user_id`, `username`, `role`, `action`, `resource`, `details`, `ip_address`) VALUES
-(1, 1, 'admin', 'ADMIN', 'SYSTEM_INITIALIZATION', 'DATABASE', 'MediTrack Database schema bootstrap and initial Indian hospital clinical seed data loaded.', '127.0.0.1'),
-(2, 2, 'dr_kavitha', 'DOCTOR', 'CREATE_CONSULTATION', 'CONSULTATION', 'Created clinical consultation record CON-2026-5001 for Patient UHID MEDI-2026-0001.', '192.168.1.101'),
+(1, 1, 'admin', 'ADMIN', 'SYSTEM_INITIALIZATION', 'DATABASE', 'CareHub Database schema bootstrap and initial Indian hospital clinical seed data loaded.', '127.0.0.1'),
+(2, 2, 'dr_kavitha', 'DOCTOR', 'CREATE_CONSULTATION', 'CONSULTATION', 'Created clinical consultation record CON-2026-5001 for Patient UHID CH-2026-0001.', '192.168.1.101'),
 (3, 2, 'dr_kavitha', 'DOCTOR', 'GENERATE_PRESCRIPTION', 'PRESCRIPTION', 'Generated digital prescription RX-2026-9001 with 3 formulations for Patient Rajesh Kumar Sharma.', '192.168.1.101'),
 (4, 1, 'admin', 'ADMIN', 'GENERATE_INVOICE', 'BILLING', 'Generated tax invoice INV-2026-7001 with 5% GST calculation for Patient Rajesh Kumar Sharma.', '192.168.1.50'),
 (5, 5, 'patient_rajesh', 'PATIENT', 'PROCESS_PAYMENT', 'PAYMENT', 'Processed full payment ₹2,339.14 via UPI (Transaction ID: UPI/RAZORPAY/9444011223@okaxis).', '192.168.1.144');

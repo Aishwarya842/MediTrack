@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Patient,
   Doctor,
@@ -1019,7 +1019,7 @@ export default function App() {
       follow_up_date: fud,
       days_left: days,
       channel: days <= 1 ? 'Call' : 'SMS',
-      message: `Dear ${rx.patient_name}, this is a friendly reminder from MediConnect Hospital that ${urgency} Please visit Dr. ${leadDoctor} on ${new Date(fud).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })} for your follow-up review. For any queries, please contact our OPD reception. — MediConnect Hospital`,
+      message: `Dear ${rx.patient_name}, this is a friendly reminder from CareHub Hospital that ${urgency} Please visit Dr. ${leadDoctor} on ${new Date(fud).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })} for your follow-up review. For any queries, please contact our OPD reception. — CareHub Hospital`,
       status: 'SENT',
       sent_at: new Date().toISOString().replace('T', ' ').substring(0, 19)
     };
@@ -1700,7 +1700,7 @@ export default function App() {
             <header className="portal-top-bar bg-white border-b border-slate-200/80 px-6 py-3 flex justify-between items-center sticky top-0 z-30 print:hidden">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs font-medium text-slate-400">
-                  MediTrack
+                  CareHub
                 </span>
                 <span className="text-slate-300">/</span>
                 <span className="text-xs font-semibold text-slate-800 capitalize">

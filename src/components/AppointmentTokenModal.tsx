@@ -132,11 +132,11 @@ export const AppointmentTokenModal: React.FC<AppointmentTokenModalProps> = ({
                 <div className="flex items-start gap-3">
                   <div className="w-11 h-11 rounded-xl bg-[#004b91] text-white flex flex-col items-center justify-center font-black p-1 leading-none shadow-xs print:bg-[#004b91]">
                     <span className="text-sm font-bold">+</span>
-                    <span className="text-[7px] tracking-tighter uppercase font-bold">MEDICONNECT</span>
+                    <span className="text-[7px] tracking-tighter uppercase font-bold">CAREHUB</span>
                   </div>
                   <div>
                     <h1 className="text-base sm:text-lg font-black tracking-tight text-[#004b91] uppercase leading-tight">
-                      MEDICONNECT MULTISPECIALITY HOSPITAL
+                      CAREHUB MULTISPECIALITY HOSPITAL
                     </h1>
                     <p className="text-[10.5px] text-slate-600 font-medium">
                       NABH Accredited Tertiary Healthcare Center • 24x7 Helpline: 1066
@@ -251,7 +251,7 @@ export const AppointmentTokenModal: React.FC<AppointmentTokenModalProps> = ({
               {/* Token Footer with Authentication */}
               <div className="flex items-center justify-between pt-2 border-t border-slate-200 text-[10px] text-slate-500 font-mono">
                 <div>
-                  Generated: {new Date().toLocaleDateString('en-GB')} • MediConnect Hospital System
+                  Generated: {new Date().toLocaleDateString('en-GB')} • CareHub Hospital System
                 </div>
                 <div className="text-right text-emerald-800 font-bold">
                   ✓ Valid Official Token

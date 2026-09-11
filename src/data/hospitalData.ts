@@ -1,5 +1,5 @@
 /**
- * MEDICONNECT – Integrated Patient Care & Multispeciality Hospital Management
+ * CAREHUB – Integrated Patient Care & Multispeciality Hospital Management
  * Initial Clinical Datasets & Medical Master Data
  */
 
@@ -571,7 +571,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 1,
     full_name: "Dr. Kavitha Ramanathan",
-    email: "dr.kavitha@mediconnect.in",
+    email: "dr.kavitha@carehub.in",
     phone: "+91 44 2483 3401",
     department: "Cardiology",
     qualification: "MBBS, MD (General Medicine), DM (Cardiology), FACC (USA)",
@@ -594,7 +594,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 2,
     full_name: "Dr. Balakrishnan Natarajan",
-    email: "dr.balakrishnan@mediconnect.in",
+    email: "dr.balakrishnan@carehub.in",
     phone: "+91 44 2483 3402",
     department: "Cardiology",
     qualification: "MBBS, MD (Internal Medicine), DM (Cardiology), FSCAI",
@@ -619,7 +619,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 3,
     full_name: "Dr. Aravind Krishnan",
-    email: "dr.aravind@mediconnect.in",
+    email: "dr.aravind@carehub.in",
     phone: "+91 44 2483 3403",
     department: "Neurology",
     qualification: "MBBS, MS (General Surgery), M.Ch (Neuro Surgery)",
@@ -642,7 +642,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 4,
     full_name: "Dr. Deepa Ramesh",
-    email: "dr.deepa@mediconnect.in",
+    email: "dr.deepa@carehub.in",
     phone: "+91 44 2483 3404",
     department: "Neurology",
     qualification: "MBBS, MD (General Medicine), DM (Neurology)",
@@ -667,7 +667,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 5,
     full_name: "Dr. Meenakshi Sundaram",
-    email: "dr.meenakshi@mediconnect.in",
+    email: "dr.meenakshi@carehub.in",
     phone: "+91 44 2483 3405",
     department: "Obstetrics & Gynaecology",
     qualification: "MBBS, DGO, MS (OB/GYN), FICOG",
@@ -690,7 +690,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 6,
     full_name: "Dr. Ananya Swaminathan",
-    email: "dr.ananya@mediconnect.in",
+    email: "dr.ananya@carehub.in",
     phone: "+91 44 2483 3406",
     department: "Obstetrics & Gynaecology",
     qualification: "MBBS, MS (OB/GYN), DNB, Fellowship in Fetal Medicine & Reproductive Genetics",
@@ -715,7 +715,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 7,
     full_name: "Dr. Suresh Balaji",
-    email: "dr.suresh@mediconnect.in",
+    email: "dr.suresh@carehub.in",
     phone: "+91 44 2483 3407",
     department: "Orthopaedics",
     qualification: "MBBS, MS (Orthopaedics), M.Ch (Ortho - UK), Fellowship in Joint Replacement",
@@ -738,7 +738,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 8,
     full_name: "Dr. R. Karthikeyan",
-    email: "dr.karthikeyan@mediconnect.in",
+    email: "dr.karthikeyan@carehub.in",
     phone: "+91 44 2483 3408",
     department: "Orthopaedics",
     qualification: "MBBS, MS (Ortho), DNB (Ortho), Fellowship in Sports Medicine (Germany)",
@@ -763,7 +763,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 9,
     full_name: "Dr. Sangeetha Natarajan",
-    email: "dr.sangeetha@mediconnect.in",
+    email: "dr.sangeetha@carehub.in",
     phone: "+91 44 2483 3409",
     department: "Paediatrics",
     qualification: "MBBS, DCH, MD (Paediatrics), Fellowship in Neonatology",
@@ -786,7 +786,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 10,
     full_name: "Dr. Manoj Prabu",
-    email: "dr.manoj@mediconnect.in",
+    email: "dr.manoj@carehub.in",
     phone: "+91 44 2483 3410",
     department: "Paediatrics",
     qualification: "MBBS, MD (Paediatrics), Fellowship in Paediatric Critical Care (PICU)",
@@ -811,7 +811,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 11,
     full_name: "Dr. Anand Parthasarathy",
-    email: "dr.anand@mediconnect.in",
+    email: "dr.anand@carehub.in",
     phone: "+91 44 2483 3411",
     department: "Nephrology",
     qualification: "MBBS, MD (Medicine), DM (Nephrology)",
@@ -834,7 +834,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 12,
     full_name: "Dr. Shanthi Varadharajan",
-    email: "dr.shanthi@mediconnect.in",
+    email: "dr.shanthi@carehub.in",
     phone: "+91 44 2483 3412",
     department: "Nephrology",
     qualification: "MBBS, MD (General Medicine), DNB (Nephrology), MNAMS",
@@ -859,7 +859,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 13,
     full_name: "Dr. Vigneshwaran S",
-    email: "dr.vignesh@mediconnect.in",
+    email: "dr.vignesh@carehub.in",
     phone: "+91 44 2483 3413",
     department: "Gastroenterology",
     qualification: "MBBS, MD, DM (Medical Gastroenterology)",
@@ -882,7 +882,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 14,
     full_name: "Dr. Saravanan Rathinam",
-    email: "dr.saravanan@mediconnect.in",
+    email: "dr.saravanan@carehub.in",
     phone: "+91 44 2483 3414",
     department: "Gastroenterology",
     qualification: "MBBS, MS (General Surgery), M.Ch (Surgical Gastroenterology), FAIS",
@@ -907,7 +907,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 15,
     full_name: "Dr. Divya Radhakrishnan",
-    email: "dr.divya@mediconnect.in",
+    email: "dr.divya@carehub.in",
     phone: "+91 44 2483 3415",
     department: "General Medicine",
     qualification: "MBBS, MD (General Medicine)",
@@ -930,7 +930,7 @@ export const INITIAL_DOCTORS: Doctor[] = [
   {
     id: 16,
     full_name: "Dr. R. Senthil Nathan",
-    email: "dr.senthil@mediconnect.in",
+    email: "dr.senthil@carehub.in",
     phone: "+91 44 2483 3416",
     department: "General Medicine",
     qualification: "MBBS, MD (Internal Medicine), PGDGM (Geriatric Medicine), FICP",
@@ -960,7 +960,7 @@ export const INITIAL_RECEPTIONISTS: Receptionist[] = [
     last_name: 'Sundaram',
     full_name: 'Ms. Aishwarya Sundaram',
     gender: 'Female',
-    email: 'aishwarya.s@mediconnect.in',
+    email: 'aishwarya.s@carehub.in',
     phone: '+91 44 2483 3400 (Ext. 101)',
     shift: 'Morning Shift (07:00 AM - 03:00 PM)',
     desk: 'Main Lobby Registration & Admission Desk',
@@ -978,7 +978,7 @@ export const INITIAL_RECEPTIONISTS: Receptionist[] = [
     last_name: 'Rajagopal',
     full_name: 'Mr. Karthik Rajagopal',
     gender: 'Male',
-    email: 'karthik.r@mediconnect.in',
+    email: 'karthik.r@carehub.in',
     phone: '+91 44 2483 3400 (Ext. 102)',
     shift: 'General Day Shift (09:00 AM - 05:30 PM)',
     desk: 'OPD Floor 1 Helpdesk & Token Dispatch',
@@ -996,7 +996,7 @@ export const INITIAL_RECEPTIONISTS: Receptionist[] = [
     last_name: 'Nandakumar',
     full_name: 'Miss Priya Nandakumar',
     gender: 'Female',
-    email: 'priya.n@mediconnect.in',
+    email: 'priya.n@carehub.in',
     phone: '+91 44 2483 3400 (Ext. 103)',
     shift: 'Evening Shift (02:30 PM - 10:00 PM)',
     desk: 'Maternity, NICU & Pediatric Admission Lounge',
@@ -1014,7 +1014,7 @@ export const INITIAL_RECEPTIONISTS: Receptionist[] = [
     last_name: 'Anand',
     full_name: 'Mr. Vignesh Anand',
     gender: 'Male',
-    email: 'vignesh.a@mediconnect.in',
+    email: 'vignesh.a@carehub.in',
     phone: '+91 44 2483 3400 (Ext. 104)',
     shift: 'Night Duty & Trauma Ingress (09:30 PM - 07:30 AM)',
     desk: '24/7 Accident & Emergency Casualty Ingress',

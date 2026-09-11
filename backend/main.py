@@ -15,8 +15,8 @@ from .routers.clinical import (
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="MEDI TRACK - Hospital Information & RBAC System",
-    description="Python FastAPI REST Backend with MySQL / SQLite integration for MEDI TRACK Hospital Management.",
+    title="CAREHUB - Hospital Information & RBAC System",
+    description="Python FastAPI REST Backend with MySQL / SQLite integration for CAREHUB Hospital Management.",
     version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
@@ -44,9 +44,9 @@ app.include_router(invoices_router)
 def health_check():
     return {
         "status": "healthy",
-        "service": "MEDI TRACK Python HIMS Core",
+        "service": "CAREHUB Python HIMS Core",
         "version": "2.0.0",
-        "database": "meditrack_db"
+        "database": "carehub_db"
     }
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-# MediTrack — Integrated Patient Care Management System
+# CareHub — Integrated Patient Care Management System
 
 A full-stack enterprise hospital management portal for Indian multispeciality hospitals, covering the complete patient care lifecycle — from public-facing website and appointment booking to clinical consultations, prescriptions, GST billing, pharmacy inventory, and analytics.
 
@@ -53,7 +53,7 @@ A full-stack enterprise hospital management portal for Indian multispeciality ho
 ## Project Structure
 
 ```
-MediTrack/
+CareHub/
 ├── app.py                        # Flask REST API server & web controller
 ├── config.py                     # Environment & hospital configuration
 ├── requirements.txt              # Python (Flask) dependencies
@@ -64,8 +64,8 @@ MediTrack/
 ├── .env.example                  # Environment variable template
 │
 ├── database/
-│   ├── meditrack.sql             # MySQL 8.0+ schema & seed data
-│   └── meditrack.sqlite          # Auto-generated SQLite database
+│   ├── carehub.sql             # MySQL 8.0+ schema & seed data
+│   └── carehub.sqlite          # Auto-generated SQLite database
 │
 ├── templates/                    # Flask Jinja2 templates (13 pages)
 │   ├── home.html
@@ -122,8 +122,8 @@ MediTrack/
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/MediTrack.git
-cd MediTrack
+git clone https://github.com/your-username/CareHub.git
+cd CareHub
 
 # Create and activate virtual environment
 python -m venv venv
@@ -137,7 +137,7 @@ pip install -r requirements.txt
 # set USE_SQLITE=false
 # set MYSQL_USER=root
 # set MYSQL_PASSWORD=your_password
-# set MYSQL_DB=meditrack_db
+# set MYSQL_DB=carehub_db
 
 # Start the server
 python app.py
@@ -187,11 +187,11 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ## Database
 
 ### SQLite (Default — Zero Config)
-The Flask app automatically creates `database/meditrack.sqlite` on startup with all 13 tables and seed data. No setup required.
+The Flask app automatically creates `database/carehub.sqlite` on startup with all 13 tables and seed data. No setup required.
 
 ### MySQL (Production)
 ```bash
-mysql -u root -p < database/meditrack.sql
+mysql -u root -p < database/carehub.sql
 ```
 
 Then set environment variables:
@@ -201,7 +201,7 @@ MYSQL_HOST=localhost
 MYSQL_PORT=3306
 MYSQL_USER=root
 MYSQL_PASSWORD=your_password
-MYSQL_DB=meditrack_db
+MYSQL_DB=carehub_db
 ```
 
 ### Database Schema (13 Tables)
@@ -214,14 +214,14 @@ MYSQL_DB=meditrack_db
 ### Flask App (`config.py`)
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `SECRET_KEY` | `meditrack-super-secret-production-key-2026` | Flask session secret |
-| `JWT_SECRET_KEY` | `meditrack-jwt-token-signing-secret-2026` | JWT token signing key |
+| `SECRET_KEY` | `carehub-super-secret-production-key-2026` | Flask session secret |
+| `JWT_SECRET_KEY` | `carehub-jwt-token-signing-secret-2026` | JWT token signing key |
 | `USE_SQLITE` | `true` | Use SQLite (`true`) or MySQL (`false`) |
 | `MYSQL_HOST` | `localhost` | MySQL host |
 | `MYSQL_PORT` | `3306` | MySQL port |
 | `MYSQL_USER` | `root` | MySQL username |
 | `MYSQL_PASSWORD` | `""` | MySQL password |
-| `MYSQL_DB` | `meditrack_db` | MySQL database name |
+| `MYSQL_DB` | `carehub_db` | MySQL database name |
 
 ### FastAPI Backend (`backend/.env`)
 | Variable | Description |
@@ -341,7 +341,7 @@ MYSQL_DB=meditrack_db
 
 ## Hospital Identity
 
-- **Name**: MediTrack Multispeciality Hospital
+- **Name**: CareHub Multispeciality Hospital
 - **Location**: Chennai, Tamil Nadu, India
 - **Accreditation**: NABH Accredited
 - **GSTIN**: `33AAACM1234F1Z8`

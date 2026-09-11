@@ -140,11 +140,11 @@ export const CompletePatientRecordsModal: React.FC<CompletePatientRecordsModalPr
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-xl bg-[#004b91] text-white flex flex-col items-center justify-center font-black p-1 leading-none shadow-xs">
                   <span className="text-base font-bold">+</span>
-                  <span className="text-[7.5px] tracking-tighter uppercase font-bold">MEDICONNECT</span>
+                  <span className="text-[7.5px] tracking-tighter uppercase font-bold">CAREHUB</span>
                 </div>
                 <div>
                   <h1 className="text-lg font-black tracking-tight text-[#004b91] uppercase leading-tight">
-                    MEDICONNECT MULTISPECIALITY HOSPITAL
+                    CAREHUB MULTISPECIALITY HOSPITAL
                   </h1>
                   <p className="text-[11px] text-slate-600 font-medium">
                     100 Feet Bypass Road, {patientLocation || 'Vadapalani'}, Tamil Nadu – 600026
@@ -410,7 +410,7 @@ export const CompletePatientRecordsModal: React.FC<CompletePatientRecordsModalPr
             <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-600 text-xs">
               <span className="font-bold text-slate-700 block mb-1">Laboratory Instructions for Patient:</span>
               <ul className="list-disc pl-4 space-y-0.5 text-[11px]">
-                <li>Report to the MediConnect central sample collection room (Ground floor OPD).</li>
+                <li>Report to the CareHub central sample collection room (Ground floor OPD).</li>
                 <li>Digital test results will automatically sync to your Patient Portal within 4 to 6 hours.</li>
               </ul>
             </div>
@@ -424,11 +424,11 @@ export const CompletePatientRecordsModal: React.FC<CompletePatientRecordsModalPr
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-xl bg-[#004b91] text-white flex flex-col items-center justify-center font-black p-1 leading-none shadow-xs">
                   <span className="text-base font-bold">+</span>
-                  <span className="text-[7.5px] tracking-tighter uppercase font-bold">MEDICONNECT</span>
+                  <span className="text-[7.5px] tracking-tighter uppercase font-bold">CAREHUB</span>
                 </div>
                 <div>
                   <h1 className="text-lg font-black tracking-tight text-[#004b91] uppercase leading-tight">
-                    MEDICONNECT MULTISPECIALITY HOSPITAL
+                    CAREHUB MULTISPECIALITY HOSPITAL
                   </h1>
                   <p className="text-[11px] text-slate-600 font-medium">
                     100 Feet Bypass Road, {patientLocation}, Chennai, Tamil Nadu – 600026
@@ -563,7 +563,7 @@ export const CompletePatientRecordsModal: React.FC<CompletePatientRecordsModalPr
                 <div className="w-24 h-8 border border-slate-300 rounded flex items-center justify-center font-mono text-[8px] text-slate-400 mb-0.5 ml-auto">
                   [CASHIER STAMP]
                 </div>
-                <div className="font-bold text-slate-900 text-xs">MEDICONNECT HOSPITALS</div>
+                <div className="font-bold text-slate-900 text-xs">CAREHUB HOSPITALS</div>
               </div>
             </div>
           </div>

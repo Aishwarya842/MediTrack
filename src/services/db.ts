@@ -24,17 +24,17 @@ import {
 } from '../data/hospitalData';
 
 const DB_KEYS = {
-  PATIENTS: 'meditrack_db_v11_patients',
-  DOCTORS: 'meditrack_db_v11_doctors',
-  APPOINTMENTS: 'meditrack_db_v11_appointments',
-  CONSULTATIONS: 'meditrack_db_v11_consultations',
-  PRESCRIPTIONS: 'meditrack_db_v11_prescriptions',
-  MEDICINES: 'meditrack_db_v11_medicines',
-  INVOICES: 'meditrack_db_v11_invoices',
-  PAYMENTS: 'meditrack_db_v11_payments',
-  AUDIT_LOGS: 'meditrack_db_v11_audit_logs',
-  NOTIFICATIONS: 'meditrack_db_v11_notifications',
-  FOLLOW_UP_REMINDERS: 'meditrack_db_v11_follow_up_reminders'
+  PATIENTS: 'carehub_db_v11_patients',
+  DOCTORS: 'carehub_db_v11_doctors',
+  APPOINTMENTS: 'carehub_db_v11_appointments',
+  CONSULTATIONS: 'carehub_db_v11_consultations',
+  PRESCRIPTIONS: 'carehub_db_v11_prescriptions',
+  MEDICINES: 'carehub_db_v11_medicines',
+  INVOICES: 'carehub_db_v11_invoices',
+  PAYMENTS: 'carehub_db_v11_payments',
+  AUDIT_LOGS: 'carehub_db_v11_audit_logs',
+  NOTIFICATIONS: 'carehub_db_v11_notifications',
+  FOLLOW_UP_REMINDERS: 'carehub_db_v11_follow_up_reminders'
 };
 
 // Auto-purge any stale or legacy versioned keys (v1 through v9) to ensure 100% clean slate
@@ -43,7 +43,7 @@ try {
     const keysToRemove: string[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
-      if (k && k.startsWith('meditrack_db_') && !Object.values(DB_KEYS).includes(k)) {
+      if (k && k.startsWith('carehub_db_') && !Object.values(DB_KEYS).includes(k)) {
         keysToRemove.push(k);
       }
     }
@@ -134,7 +134,7 @@ export const dbService = {
         Object.values(DB_KEYS).forEach((k) => localStorage.removeItem(k));
         for (let i = localStorage.length - 1; i >= 0; i--) {
           const k = localStorage.key(i);
-          if (k && (k.startsWith('meditrack_') || k.startsWith('meditrack'))) {
+          if (k && (k.startsWith('carehub_') || k.startsWith('carehub'))) {
             localStorage.removeItem(k);
           }
         }

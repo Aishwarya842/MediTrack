@@ -1,18 +1,18 @@
-# MediConnect – Integrated Patient Care & Multispeciality Hospital Management System
+# CareHub – Integrated Patient Care & Multispeciality Hospital Management System
 
-An enterprise-grade, Indian multispeciality healthcare web portal and hospital management system built with **React 19**, **TypeScript**, **Tailwind CSS**, and **Vite**. Inspired by leading multispeciality healthcare institutions, MediConnect seamlessly bridges public patient discovery, front-desk reception, clinical OPD consultations, digital prescriptions, cashless protocols, and administrative governance.
+An enterprise-grade, Indian multispeciality healthcare web portal and hospital management system built with **React 19**, **TypeScript**, **Tailwind CSS**, and **Vite**. Inspired by leading multispeciality healthcare institutions, CareHub seamlessly bridges public patient discovery, front-desk reception, clinical OPD consultations, digital prescriptions, cashless protocols, and administrative governance.
 
 ---
 
 ## 🔐 Login Credentials & Authentication Flow
 
-MediConnect features an intuitive, role-based authentication model tailored for rapid hospital workflows:
+CareHub features an intuitive, role-based authentication model tailored for rapid hospital workflows:
 
 | Role | Login Method / Password | Details |
 |---|---|---|
 | 👨‍⚕️ **Doctor** | **No Password (Passwordless 1-Click Login)** | Doctors simply select their name from the dropdown list and click **"Login as Doctor"**. Instantly loads their personalized OPD chamber, assigned patient queue, and clinical notes. |
 | 👩‍💼 **Receptionist** | **`reception`** *(or `reception123` / `1234`)* | Unlocks the Front Desk OPD station for walk-in patient registration, ₹945 fee collection, vitals recording, queue token generation, and doctor dispatch alerts. |
-| 🛡️ **Admin** | **`admin`** *(or `admin123` / `meditrack`)* | Unlocks hospital-wide administrative control, doctor & staff management, medicine inventory & stock control, revenue analytics, and clinical audit trail logs. |
+| 🛡️ **Admin** | **`admin`** *(or `admin123` / `carehub`)* | Unlocks hospital-wide administrative control, doctor & staff management, medicine inventory & stock control, revenue analytics, and clinical audit trail logs. |
 | 🏥 **Patient** | **Registered 10-Digit Mobile Number** *(or Token / UHID)* | **No password required.** Patients can track their live queue status, token progress, and download/print verified digital prescriptions simply by entering their registered mobile number. |
 
 ---

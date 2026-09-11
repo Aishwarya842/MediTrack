@@ -378,7 +378,7 @@ export const InvoicesView: React.FC<InvoicesViewProps> = ({
                   </div>
                   <div>
                     <h1 className="text-xl font-bold text-slate-900 tracking-tight">
-                      MEDI TRACK HOSPITAL
+                      CAREHUB HOSPITAL
                     </h1>
                     <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
                       TAX INVOICE / HOSPITAL BILL
@@ -470,7 +470,7 @@ export const InvoicesView: React.FC<InvoicesViewProps> = ({
                   </div>
                   <div className="text-xs space-y-0.5">
                     <strong className="text-slate-900 block font-semibold">Instant UPI Verification</strong>
-                    <div className="text-[11px] text-slate-500 font-mono">VPA: meditrack@icici</div>
+                    <div className="text-[11px] text-slate-500 font-mono">VPA: carehub@icici</div>
                     <div className="text-[11px] text-slate-500">Mode: {selectedInvoice.payment_mode}</div>
                     <span className="text-[10px] text-slate-700 font-medium bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded inline-block">
                       VERIFIED SETTLEMENT
@@ -513,10 +513,10 @@ export const InvoicesView: React.FC<InvoicesViewProps> = ({
               <div className="pt-4 border-t border-slate-100 flex justify-between items-end text-xs text-slate-400">
                 <div>
                   <div className="font-mono text-[10px]">E-Invoice IRN: 8a93bf102...</div>
-                  <div className="text-[10px]">Thank you for choosing MediTrack Healthcare. Get well soon!</div>
+                  <div className="text-[10px]">Thank you for choosing CareHub Healthcare. Get well soon!</div>
                 </div>
                 <div className="text-right">
-                  <div className="font-semibold text-slate-900 text-xs">MEDI TRACK HOSPITALS</div>
+                  <div className="font-semibold text-slate-900 text-xs">CAREHUB HOSPITALS</div>
                   <div className="text-[11px] text-slate-500 mt-0.5">Authorized Billing Signatory</div>
                 </div>
               </div>

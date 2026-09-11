@@ -312,7 +312,7 @@ export const RemindersView: React.FC<RemindersViewProps> = ({
             ))}
             {filteredReminders.length === 0 && (
               <div className="bg-slate-50 border border-dashed border-slate-200 rounded-xl p-3 text-[11px] text-slate-500 leading-relaxed">
-                📲 Example: "Dear Aishwarya S, this is a friendly reminder from MediConnect Hospital that your follow-up visit with Dr. R. Senthil Nathan is scheduled on 14 Sep 2026. Please visit us at your scheduled time. — MediConnect Hospital"
+                📲 Example: "Dear Aishwarya S, this is a friendly reminder from CareHub Hospital that your follow-up visit with Dr. R. Senthil Nathan is scheduled on 14 Sep 2026. Please visit us at your scheduled time. — CareHub Hospital"
               </div>
             )}
           </div>

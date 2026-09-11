@@ -637,7 +637,7 @@ export const PrescriptionsView: React.FC<PrescriptionsViewProps> = ({
                 <div>
                   <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
                     <i className="fa-solid fa-file-prescription text-sky-600"></i>
-                    Prescription #{selectedRx.prescription_no} (MediConnect OPD)
+                    Prescription #{selectedRx.prescription_no} (CareHub OPD)
                   </span>
                   <span className="text-[10px] text-slate-400 block mt-0.5">
                     💡 Tip: In your browser print dialog, uncheck &quot;Headers and footers&quot; for a clean, borderless single sheet.
@@ -662,17 +662,17 @@ export const PrescriptionsView: React.FC<PrescriptionsViewProps> = ({
                 </div>
               </div>
 
-              {/* Exact Clean MediConnect Letterhead Header */}
+              {/* Exact Clean CareHub Letterhead Header */}
               <div className="flex items-start gap-4 pb-1">
-                {/* Rounded Blue MediConnect Logo with White Medical Cross */}
+                {/* Rounded Blue CareHub Logo with White Medical Cross */}
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-600 to-blue-700 text-white flex flex-col items-center justify-center p-1.5 shadow-2xs shrink-0 print:bg-sky-600">
                   <div className="w-6 h-6 border-2 border-white rounded-xs flex items-center justify-center font-bold text-base leading-none mb-0.5">
                     +
                   </div>
                   <span className="text-[7.5px] font-black uppercase tracking-tighter leading-none text-center">
-                    Medi
+                    Care
                     <br />
-                    Connect
+                    Hub
                   </span>
                 </div>
 
@@ -680,7 +680,7 @@ export const PrescriptionsView: React.FC<PrescriptionsViewProps> = ({
                 <div className="space-y-0.5 text-slate-800 flex-1">
                   <div className="flex items-center justify-between">
                     <h1 className="text-xl font-bold text-sky-600 tracking-tight leading-tight">
-                      MediConnect Hospital
+                      CareHub Hospital
                     </h1>
                     <span className="text-[9.5px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50 border border-slate-200 px-2 py-0.5 rounded">
                       NABH ACCREDITED • ISO 9001:2015
@@ -702,7 +702,7 @@ export const PrescriptionsView: React.FC<PrescriptionsViewProps> = ({
                     </span>
                     <span>
                       <i className="fa-solid fa-envelope text-slate-400 mr-1 text-[10px]"></i>
-                      {rxDoctor.email || 'opd@mediconnect.in'}
+                      {rxDoctor.email || 'opd@carehub.in'}
                     </span>
                   </div>
                 </div>

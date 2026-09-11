@@ -144,7 +144,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       phone: '+91 44 2483 3444 / 1066',
       hours: '24 Hours Emergency & 08:30 AM - 08:30 PM OPD',
       specialties: ['Cardiac Sciences & Cath Lab', 'Robotic Joint Replacement', 'Neuro-Spine Surgery', 'Level-III NICU', 'Dialysis Unit'],
-      mapQuery: 'MediConnect+Hospital+Vadapalani+Chennai'
+      mapQuery: 'CareHub+Hospital+Vadapalani+Chennai'
     },
     {
       id: 'nungambakkam',
@@ -155,7 +155,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       phone: '+91 44 2827 7788',
       hours: '08:00 AM - 08:00 PM (Monday - Saturday)',
       specialties: ['Liver & Kidney Care', 'Digestive Health', 'Day Care Laparoscopy', 'Executive Health Checkups'],
-      mapQuery: 'MediConnect+Hospital+Nungambakkam+Chennai'
+      mapQuery: 'CareHub+Hospital+Nungambakkam+Chennai'
     },
     {
       id: 'nagercoil',
@@ -166,7 +166,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       phone: '+91 4652 232 444',
       hours: '08:30 AM - 08:00 PM Daily',
       specialties: ['Cardiology Consultations', 'Orthopaedics & Spine', 'Dialysis Centre', 'Digital Imaging'],
-      mapQuery: 'MediConnect+Hospital+Nagercoil'
+      mapQuery: 'CareHub+Hospital+Nagercoil'
     },
     {
       id: 'tirunelveli',
@@ -177,18 +177,18 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       phone: '+91 462 250 1234',
       hours: '24 Hours Emergency & Outpatient Services',
       specialties: ['Trauma & Emergency', 'Mother & Child Care', 'Critical Care ICU', 'General Medicine'],
-      mapQuery: 'MediConnect+Hospital+Tirunelveli'
+      mapQuery: 'CareHub+Hospital+Tirunelveli'
     },
     {
       id: 'fertility',
-      name: "MEDICONNECT FERTILITY & WOMEN'S CARE",
+      name: "CAREHUB FERTILITY & WOMEN'S CARE",
       tagline: 'State-of-the-art IVF, Reproductive Medicine & High-Risk Maternity',
       image: branchFertilityImg,
       address: '10, Jawaharlal Nehru Salai, Vadapalani, Chennai, Tamil Nadu 600026',
       phone: '+91 44 2483 3450',
       hours: '08:00 AM - 06:30 PM (Mon - Sat)',
       specialties: ['IVF / ICSI Technology', 'High-Risk Pregnancy', 'Fetal Medicine', 'Laparoscopic Gynaecology'],
-      mapQuery: 'MediConnect+Fertility+Vadapalani+Chennai'
+      mapQuery: 'CareHub+Fertility+Vadapalani+Chennai'
     },
     {
       id: 'scans',
@@ -203,14 +203,14 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
     },
     {
       id: 'diagnostics',
-      name: 'MEDICONNECT DIAGNOSTICS INTERNATIONAL',
+      name: 'CAREHUB DIAGNOSTICS INTERNATIONAL',
       tagline: 'NABL Accredited Fully Automated Reference Laboratory',
       image: ctScanSuiteImg,
-      address: 'MediConnect Tower, Vadapalani, Chennai 600026',
+      address: 'CareHub Tower, Vadapalani, Chennai 600026',
       phone: '+91 7699997000',
       hours: '24x7 Sample Collection & Home Visit',
       specialties: ['Molecular Biology', 'Histopathology', 'Biochemistry & Immunoassays', 'Microbiology'],
-      mapQuery: 'MediConnect+Diagnostics+Vadapalani+Chennai'
+      mapQuery: 'CareHub+Diagnostics+Vadapalani+Chennai'
     }
   ];
 
@@ -292,7 +292,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       reviewsCount: '3 reviews',
       rating: 5,
       timeAgo: '1 week ago',
-      content: 'I underwent IVF treatment at MediConnect in 2023, and the care provided by the fertility doctors and nursing staff was phenomenal. The doctors explain every step patiently and the laboratory standards are top notch. Today we are blessed with healthy twins.',
+      content: 'I underwent IVF treatment at CareHub in 2023, and the care provided by the fertility doctors and nursing staff was phenomenal. The doctors explain every step patiently and the laboratory standards are top notch. Today we are blessed with healthy twins.',
       department: 'Fertility & Obstetrics'
     },
     {
@@ -303,7 +303,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       reviewsCount: '5 reviews',
       rating: 5,
       timeAgo: '2 days ago',
-      content: 'Best NICU in Chennai at MediConnect. High-tech equipment and the doctors took exceptional care of our premature baby. The nurses are attentive 24/7 and treat every newborn like their own child. Forever grateful to Dr. Sangeetha and the team.',
+      content: 'Best NICU in Chennai at CareHub. High-tech equipment and the doctors took exceptional care of our premature baby. The nurses are attentive 24/7 and treat every newborn like their own child. Forever grateful to Dr. Sangeetha and the team.',
       department: 'Neonatal ICU (NICU)'
     },
     {
@@ -314,7 +314,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       reviewsCount: '3 reviews',
       rating: 5,
       timeAgo: '2 months ago',
-      content: 'I am very happy with NICU and Maternity care at MediConnect, headed by experienced senior doctors who guide you with utmost compassion. Clean rooms, hygienic environment, and very reasonable transparent billing.',
+      content: 'I am very happy with NICU and Maternity care at CareHub, headed by experienced senior doctors who guide you with utmost compassion. Clean rooms, hygienic environment, and very reasonable transparent billing.',
       department: 'Maternity & Child Health'
     },
     {
@@ -325,7 +325,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       reviewsCount: '8 reviews',
       rating: 5,
       timeAgo: '3 weeks ago',
-      content: 'As a practicing physician myself, I entrusted my father’s complex coronary angioplasty to MediConnect’s cardiac team. The digital Cath Lab procedure was executed with clinical precision and zero complications. Truly 35 years of trusted excellence.',
+      content: 'As a practicing physician myself, I entrusted my father’s complex coronary angioplasty to CareHub’s cardiac team. The digital Cath Lab procedure was executed with clinical precision and zero complications. Truly 35 years of trusted excellence.',
       department: 'Cardiology & Cath Lab'
     },
     {
@@ -336,7 +336,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
       reviewsCount: '4 reviews',
       rating: 5,
       timeAgo: '1 month ago',
-      content: 'Robotic knee replacement surgery at MediConnect Orthopaedics helped my 68-year-old mother walk pain-free within 48 hours. Excellent post-op physiotherapy and caring staff.',
+      content: 'Robotic knee replacement surgery at CareHub Orthopaedics helped my 68-year-old mother walk pain-free within 48 hours. Excellent post-op physiotherapy and caring staff.',
       department: 'Orthopaedics & Joint Replacement'
     }
   ];
@@ -1099,8 +1099,8 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
         className="bg-gradient-to-b from-slate-50 to-white py-16 sm:py-24 border-y border-slate-200 relative overflow-hidden"
       >
         <AntigravityCanvas className="opacity-75" />
-        <span id="why-sooriya" className="sr-only">Why MediConnect</span>
-        <span id="why-mediconnect" className="sr-only">MediConnect Legacy</span>
+        <span id="why-sooriya" className="sr-only">Why CareHub</span>
+        <span id="why-carehub" className="sr-only">CareHub Legacy</span>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           {/* Header */}
@@ -1113,7 +1113,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
               35 Years of Healing, Innovation & Trusted Patient Care
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed mt-3">
-              Established in Vadapalani in 1991, MediConnect has evolved from a pioneering community surgical center into one of South India's most respected multispeciality tertiary care networks, grounded in ethical medicine and patient-centric compassion.
+              Established in Vadapalani in 1991, CareHub has evolved from a pioneering community surgical center into one of South India's most respected multispeciality tertiary care networks, grounded in ethical medicine and patient-centric compassion.
             </p>
           </div>
 
@@ -2343,7 +2343,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
             <div className="space-y-3 text-xs mb-5">
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
                 <span className="font-bold text-slate-900 block mb-0.5">Clinical Biography:</span>
-                <span className="text-slate-600 leading-relaxed">{activeDoctorModal.about || 'Senior clinical faculty member dedicated to ethical, precision medical care and patient wellness at MediConnect.'}</span>
+                <span className="text-slate-600 leading-relaxed">{activeDoctorModal.about || 'Senior clinical faculty member dedicated to ethical, precision medical care and patient wellness at CareHub.'}</span>
               </div>
 
               <div className="flex justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
@@ -2411,7 +2411,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
                 </div>
                 <div>
                   <div className="text-xl font-black font-display tracking-tight text-white">
-                    Medi<span className="text-[#f58220]">Connect</span>
+                    Care<span className="text-[#f58220]">Hub</span>
                   </div>
                   <div className="text-[10px] text-white/70 font-semibold tracking-widest uppercase">
                     Multispeciality Hospital
@@ -2510,7 +2510,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
                 </div>
 
                 <div className="pt-2 border-t border-slate-100">
-                  <div className="text-[11px] text-slate-400 font-extrabold uppercase tracking-wider mb-2.5">Connect with MediConnect</div>
+                  <div className="text-[11px] text-slate-400 font-extrabold uppercase tracking-wider mb-2.5">Connect with CareHub</div>
                   <div className="flex items-center justify-center gap-3 text-sm text-[#002a54]">
                     <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="w-9 h-9 rounded-xl bg-slate-100 hover:bg-[#002a54] hover:text-white flex items-center justify-center transition shadow-2xs cursor-pointer font-bold text-xs">
                       <i className="fa-brands fa-linkedin-in text-sm"></i>
@@ -2532,11 +2532,11 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
           <div className="pt-6 flex flex-wrap items-center justify-between gap-4 text-xs text-white/70">
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="mailto:enquiry@mediconnect.in"
+                href="mailto:enquiry@carehub.in"
                 className="px-4 py-1.5 rounded-full border border-white/30 hover:border-white text-white/90 text-xs font-bold transition flex items-center gap-1.5"
               >
                 <i className="fa-solid fa-envelope text-[#f58220]"></i>
-                <span>enquiry@mediconnect.in</span>
+                <span>enquiry@carehub.in</span>
               </a>
               <a
                 href="tel:+917699997000"
@@ -2548,7 +2548,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({
             </div>
 
             <div className="text-[11px] text-white/60 font-medium">
-              © 2026 MediConnect Hospital. All Rights Reserved. NABH & NABL Certified.
+              © 2026 CareHub Hospital. All Rights Reserved. NABH & NABL Certified.
             </div>
           </div>
 

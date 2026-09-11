@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             }}
             className="flex items-center gap-2.5 sm:gap-3 text-left focus:outline-none cursor-pointer group"
           >
-            {/* MediConnect Sun & Heart Care Emblem */}
+            {/* CareHub Sun & Heart Care Emblem */}
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-md relative group-hover:scale-105 transition-transform flex-shrink-0">
               <i className="fa-solid fa-sun text-2xl text-amber-100 animate-spin-slow"></i>
               <span className="absolute inset-0 flex items-center justify-center font-black text-[12px] text-orange-950 font-sans tracking-tighter">
@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div>
               <div className="text-xl sm:text-2xl font-black font-display tracking-tight text-[#e66c00] group-hover:text-[#d35f00] transition-colors leading-none flex items-center gap-1.5">
-                <span>MEDICONNECT</span>
+                <span>CAREHUB</span>
               </div>
               <span className="text-[10px] sm:text-[11px] font-semibold text-slate-500 tracking-wider block mt-0.5 font-sans">
                 VADAPALANI, CHENNAI • MULTISPECIALITY TERTIARY CARE
@@ -361,11 +361,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               Home
             </button>
             <a
-              href="#why-mediconnect"
+              href="#why-carehub"
               onClick={() => setMobileMenuOpen(false)}
               className="block py-2 px-3 rounded-lg hover:bg-white/10"
             >
-              About MediConnect (35 Yrs)
+              About CareHub (35 Yrs)
             </a>
             <a
               href="#centres"

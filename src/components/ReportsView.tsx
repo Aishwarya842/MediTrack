@@ -87,7 +87,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
       'Registration Date': p.created_at || ''
     }));
 
-    triggerCSVDownload(formattedPatients, `meditrack_patient_master_${new Date().toISOString().split('T')[0]}.csv`);
+    triggerCSVDownload(formattedPatients, `carehub_patient_master_${new Date().toISOString().split('T')[0]}.csv`);
   };
 
   // 2. Revenue & Billing Ledger Exporter
@@ -131,7 +131,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
       };
     });
 
-    triggerCSVDownload(formattedInvoices, `meditrack_revenue_billing_${new Date().toISOString().split('T')[0]}.csv`);
+    triggerCSVDownload(formattedInvoices, `carehub_revenue_billing_${new Date().toISOString().split('T')[0]}.csv`);
   };
 
   // 3. Pharmacy Formulary & Inventory Exporter
@@ -151,7 +151,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
       'HSN Code': m.hsn_code
     }));
 
-    triggerCSVDownload(formattedMedicines, `meditrack_pharmacy_inventory_${new Date().toISOString().split('T')[0]}.csv`);
+    triggerCSVDownload(formattedMedicines, `carehub_pharmacy_inventory_${new Date().toISOString().split('T')[0]}.csv`);
   };
 
   // 4. NABH Audit Trail Exporter
@@ -165,7 +165,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
       'Audit Details': log.details
     }));
 
-    triggerCSVDownload(formattedLogs, `meditrack_security_audit_logs_${new Date().toISOString().split('T')[0]}.csv`);
+    triggerCSVDownload(formattedLogs, `carehub_security_audit_logs_${new Date().toISOString().split('T')[0]}.csv`);
   };
 
   return (

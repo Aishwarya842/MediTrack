@@ -143,11 +143,11 @@ export const ConsultationFeeReceiptModal: React.FC<ConsultationFeeReceiptModalPr
               <div className="flex items-start gap-3.5">
                 <div className="w-12 h-12 rounded-xl bg-[#004b91] text-white flex flex-col items-center justify-center font-black p-1 leading-none shadow-xs shrink-0 print:bg-[#004b91]">
                   <span className="text-base font-bold">+</span>
-                  <span className="text-[7.5px] tracking-tighter uppercase font-bold">MEDICONNECT</span>
+                  <span className="text-[7.5px] tracking-tighter uppercase font-bold">CAREHUB</span>
                 </div>
                 <div>
                   <h1 className="text-lg sm:text-xl font-black tracking-tight text-[#004b91] uppercase leading-tight">
-                    MEDICONNECT MULTISPECIALITY HOSPITAL
+                    CAREHUB MULTISPECIALITY HOSPITAL
                   </h1>
                   <p className="text-[11px] text-slate-600 font-medium">
                     100 Feet Bypass Road, Vadapalani, Chennai, Tamil Nadu – 600026
@@ -447,7 +447,7 @@ export const ConsultationFeeReceiptModal: React.FC<ConsultationFeeReceiptModalPr
                 <div className="w-28 h-10 border border-slate-300 rounded flex items-center justify-center font-mono text-[9px] text-slate-400 mb-1 ml-auto">
                   [CASHIER STAMP]
                 </div>
-                <div className="font-bold text-slate-900 text-xs">MEDI CONNECT HOSPITALS</div>
+                <div className="font-bold text-slate-900 text-xs">CAREHUB HOSPITALS</div>
                 <div className="text-[10px] text-slate-500">Authorized Billing Signatory</div>
               </div>
             </div>

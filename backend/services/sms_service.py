@@ -1,5 +1,5 @@
 """
-MEDI TRACK - SMS Gateway Service Integration
+CAREHUB - SMS Gateway Service Integration
 Supports Twilio, Fast2SMS, and MSG91 for real telecom SMS dispatching.
 """
 import os
@@ -16,7 +16,7 @@ def send_appointment_sms(phone: str, token: str, doctor_name: str, date_str: str
     Dispatches real SMS to patient mobile phone via SMS Gateway API.
     """
     message_text = (
-        f"MEDI TRACK HOSPITAL\n"
+        f"CAREHUB HOSPITAL\n"
         f"Your OPD appointment is confirmed!\n"
         f"Token: {token}\n"
         f"Doctor: {doctor_name}\n"

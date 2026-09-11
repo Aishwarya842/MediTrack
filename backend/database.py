@@ -3,10 +3,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Default to MySQL as per meditrack.sql; fallback to SQLite for local zero-config testing
+# Default to MySQL as per carehub.sql; fallback to SQLite for local zero-config testing
 DATABASE_URL = os.getenv(
     "DATABASE_URL", 
-    "mysql+pymysql://root:password@localhost:3306/meditrack_db"
+    "mysql+pymysql://root:password@localhost:3306/carehub_db"
 )
 
 # If using SQLite for testing without active MySQL instance

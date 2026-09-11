@@ -23,35 +23,35 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ doctors, onBookAppoint
       title: 'Preventive Health And Wellness',
       description: 'Promoting healthier lifestyles through preventive care, comprehensive wellness packages, and long-term vitality management.',
       image: preventiveHeroImg,
-      alt: 'Preventive Health and Wellness at MediConnect'
+      alt: 'Preventive Health and Wellness at CareHub'
     },
     {
       id: 1,
       title: '35 Years of Excellence in Healthcare',
       description: 'Delivering trusted multispeciality clinical care with compassion, cutting-edge technology, and unwavering patient safety.',
       image: hospitalMainCampusImg,
-      alt: 'MediConnect Vadapalani Campus'
+      alt: 'CareHub Vadapalani Campus'
     },
     {
       id: 2,
       title: 'Advanced Neonatal & Maternity Care',
       description: 'Tender newborn care, Level-III Neonatal Intensive Care Unit (NICU), high-risk obstetric monitoring, and painless delivery suites.',
       image: babyFootMaternityImg,
-      alt: 'Tender Newborn Care and Maternity Suite at MediConnect'
+      alt: 'Tender Newborn Care and Maternity Suite at CareHub'
     },
     {
       id: 3,
       title: 'Robotic & Minimally Invasive Surgery',
       description: 'Pioneering sub-millimeter robotic joint replacements and advanced laparoscopic surgical interventions for rapid recovery.',
       image: roboticSurgeryImg,
-      alt: 'Robotic Surgical Theatre at MediConnect'
+      alt: 'Robotic Surgical Theatre at CareHub'
     },
     {
       id: 4,
       title: '24x7 Emergency & Critical Care',
       description: 'Equipped with digital cardiac Cath Lab, trauma emergency unit, and rapid ALS ambulance dispatch.',
       image: cardiacIcuImg,
-      alt: 'Emergency and Critical Care ICU at MediConnect'
+      alt: 'Emergency and Critical Care ICU at CareHub'
     }
   ];
 

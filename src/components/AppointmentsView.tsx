@@ -326,7 +326,7 @@ export const AppointmentsView: React.FC<AppointmentsViewProps> = ({
       if (res.success && res.appointment) {
         // Requirement 3: After booking, show "Appointment booked successfully" with doctor's name, hospital/location, exact appointment date and time
         setSchedSuccessMsg(
-          `Appointment booked successfully with ${res.appointment.doctor_name} at MediConnect Hospital (${res.appointment.patient_location || schedLocation}) on ${res.appointment.appointment_date} at ${res.appointment.appointment_time}.`
+          `Appointment booked successfully with ${res.appointment.doctor_name} at CareHub Hospital (${res.appointment.patient_location || schedLocation}) on ${res.appointment.appointment_date} at ${res.appointment.appointment_time}.`
         );
         setSchedSelectedAppt(res.appointment);
       } else {

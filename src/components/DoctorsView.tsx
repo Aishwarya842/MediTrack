@@ -30,7 +30,7 @@ export const DoctorsView: React.FC<DoctorsViewProps> = ({
       <div className="flex flex-wrap justify-between items-center gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div>
           <div className="text-xs font-extrabold uppercase tracking-wider text-[#e66c00] mb-1">
-            MediConnect Clinical Directory
+            CareHub Clinical Directory
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-[#002a54] font-display tracking-tight">
             Medical Faculty & Specialist Directory

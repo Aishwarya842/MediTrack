@@ -581,7 +581,7 @@ export const PatientsView: React.FC<PatientsViewProps> = ({
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `meditrack_patients_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `carehub_patients_${new Date().toISOString().split('T')[0]}.csv`);
     document.body.appendChild(link);
     link.click();
     setTimeout(() => {
@@ -933,7 +933,7 @@ export const PatientsView: React.FC<PatientsViewProps> = ({
                   <i className="fa-solid fa-hospital-user text-sky-300"></i>
                 </div>
                 <div>
-                  <h3 className="font-bold text-base tracking-tight">MediTrack Hospital Patient Identity Card</h3>
+                  <h3 className="font-bold text-base tracking-tight">CareHub Hospital Patient Identity Card</h3>
                   <p className="text-xs text-sky-200">NABH Accredited Tertiary Multispeciality Medical Centre</p>
                 </div>
               </div>

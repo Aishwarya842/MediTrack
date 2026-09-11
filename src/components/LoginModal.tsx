@@ -79,7 +79,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         return;
       }
       // Accept admin, admin123 or standard pass
-      if (adminPassword.trim() !== 'admin' && adminPassword.trim() !== 'admin123' && adminPassword.trim() !== 'meditrack') {
+      if (adminPassword.trim() !== 'admin' && adminPassword.trim() !== 'admin123' && adminPassword.trim() !== 'carehub') {
         setErrorMessage('Invalid Admin Password. (Default: admin or admin123)');
         return;
       }
@@ -89,7 +89,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         full_name: 'Medical Director (Admin)',
         role: 'ADMIN',
         department: 'Hospital Administration & Governance',
-        email: 'admin@meditrack.in'
+        email: 'admin@carehub.in'
       });
       onClose();
       return;
@@ -115,7 +115,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         full_name: 'Front Desk OPD Receptionist',
         role: 'RECEPTIONIST',
         department: 'Front Desk & Patient Token Station',
-        email: 'reception@meditrack.in'
+        email: 'reception@carehub.in'
       });
       onClose();
       return;
@@ -174,7 +174,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       patient_uhid: verifiedPatient.uhid,
       token_no: verifiedAppt?.appointment_no || '',
       role: 'PATIENT',
-      email: verifiedPatient.email || `${cleanPhone}@patient.meditrack.in`
+      email: verifiedPatient.email || `${cleanPhone}@patient.carehub.in`
     });
 
     onClose();
@@ -194,7 +194,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-                <span>MEDI TRACK PORTAL</span>
+                <span>CAREHUB PORTAL</span>
               </h3>
               <p className="text-xs text-slate-400">
                 Hospital Intranet &amp; Patient Live Status Gateway
@@ -491,7 +491,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           <span className="flex items-center gap-1.5 font-medium">
             <i className="fa-solid fa-shield-halved text-slate-400"></i> NABH &amp; HIPAA Verified
           </span>
-          <span className="text-slate-400">MediTrack Database v3.2</span>
+          <span className="text-slate-400">CareHub Database v3.2</span>
         </div>
 
       </div>

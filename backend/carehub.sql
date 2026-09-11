@@ -1,10 +1,10 @@
 -- =============================================
--- MEDI TRACK - Complete Database Setup with RBAC
+-- CAREHUB - Complete Database Setup with RBAC
 -- =============================================
 
 -- Step 1: Create Database
-CREATE DATABASE IF NOT EXISTS meditrack_db;
-USE meditrack_db;
+CREATE DATABASE IF NOT EXISTS carehub_db;
+USE carehub_db;
 
 -- =============================================
 -- Step 2: Create All Tables
@@ -275,24 +275,24 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 -- Step 3: Insert Sample Data with All Roles
 -- =============================================
 INSERT IGNORE INTO users (email, password_hash, role, full_name, phone) VALUES 
-('admin@meditrack.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'admin', 'System Administrator', '9876543200'),
-('dr.john@meditrack.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'doctor', 'Dr. John Smith', '9876543201'),
-('dr.sarah@meditrack.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'doctor', 'Dr. Sarah Johnson', '9876543202'),
-('dr.michael@meditrack.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'doctor', 'Dr. Michael Brown', '9876543203'),
-('dr.emily@meditrack.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'doctor', 'Dr. Emily Davis', '9876543204'),
-('reception@meditrack.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'receptionist', 'Priya Reception', '9876543205'),
+('admin@carehub.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'admin', 'System Administrator', '9876543200'),
+('dr.john@carehub.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'doctor', 'Dr. John Smith', '9876543201'),
+('dr.sarah@carehub.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'doctor', 'Dr. Sarah Johnson', '9876543202'),
+('dr.michael@carehub.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'doctor', 'Dr. Michael Brown', '9876543203'),
+('dr.emily@carehub.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'doctor', 'Dr. Emily Davis', '9876543204'),
+('reception@carehub.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'receptionist', 'Priya Reception', '9876543205'),
 ('raj.kumar@email.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'patient', 'Raj Kumar', '9876543210'),
 ('priya.sharma@email.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'patient', 'Priya Sharma', '9876543211'),
 ('amit.patel@email.com', '$2b$12$r8xS5lNXuR9kGc5M5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5R5OqO5', 'patient', 'Amit Patel', '9876543212');
 
 INSERT IGNORE INTO doctors (user_id, first_name, last_name, email, phone, specialization, qualification, experience, consultation_fee) VALUES
-((SELECT id FROM users WHERE email = 'dr.john@meditrack.com'), 'John', 'Smith', 'dr.john@meditrack.com', '9876543201', 'Cardiology', 'MD, FACC', 15, 200.00),
-((SELECT id FROM users WHERE email = 'dr.sarah@meditrack.com'), 'Sarah', 'Johnson', 'dr.sarah@meditrack.com', '9876543202', 'Neurology', 'MD, PhD', 12, 180.00),
-((SELECT id FROM users WHERE email = 'dr.michael@meditrack.com'), 'Michael', 'Brown', 'dr.michael@meditrack.com', '9876543203', 'Pediatrics', 'MD', 8, 150.00),
-((SELECT id FROM users WHERE email = 'dr.emily@meditrack.com'), 'Emily', 'Davis', 'dr.emily@meditrack.com', '9876543204', 'Dermatology', 'MD, FAAD', 10, 160.00);
+((SELECT id FROM users WHERE email = 'dr.john@carehub.com'), 'John', 'Smith', 'dr.john@carehub.com', '9876543201', 'Cardiology', 'MD, FACC', 15, 200.00),
+((SELECT id FROM users WHERE email = 'dr.sarah@carehub.com'), 'Sarah', 'Johnson', 'dr.sarah@carehub.com', '9876543202', 'Neurology', 'MD, PhD', 12, 180.00),
+((SELECT id FROM users WHERE email = 'dr.michael@carehub.com'), 'Michael', 'Brown', 'dr.michael@carehub.com', '9876543203', 'Pediatrics', 'MD', 8, 150.00),
+((SELECT id FROM users WHERE email = 'dr.emily@carehub.com'), 'Emily', 'Davis', 'dr.emily@carehub.com', '9876543204', 'Dermatology', 'MD, FAAD', 10, 160.00);
 
 INSERT IGNORE INTO receptionists (user_id, first_name, last_name, email, phone, employee_id, shift) VALUES
-((SELECT id FROM users WHERE email = 'reception@meditrack.com'), 'Priya', 'Reception', 'reception@meditrack.com', '9876543205', 'EMP001', 'morning');
+((SELECT id FROM users WHERE email = 'reception@carehub.com'), 'Priya', 'Reception', 'reception@carehub.com', '9876543205', 'EMP001', 'morning');
 
 INSERT IGNORE INTO patients (user_id, first_name, last_name, email, phone, date_of_birth, gender, blood_group) VALUES
 ((SELECT id FROM users WHERE email = 'raj.kumar@email.com'), 'Raj', 'Kumar', 'raj.kumar@email.com', '9876543210', '1985-05-15', 'Male', 'A+'),

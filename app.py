@@ -1,6 +1,6 @@
 """
 =============================================================================
-MEDI TRACK – Integrated Patient Care Management System
+CAREHUB – Integrated Patient Care Management System
 Primary Flask Application & REST API Server
 =============================================================================
 """
@@ -287,33 +287,33 @@ def init_sqlite_db():
         doc_hash = generate_password_hash("Doctor@123")
         pat_hash = generate_password_hash("Patient@123")
         
-        cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (1, 'admin', 'admin@meditrack.in', ?, 'ADMIN', 'Dr. Sundaramurthy Iyer (Medical Director)', '+91-98401-22334')", (pwd_hash,))
-        cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (2, 'dr_kavitha', 'kavitha.cardio@meditrack.in', ?, 'DOCTOR', 'Dr. Kavitha Ramanathan, MD, DM (Cardiology)', '+91-98402-33445')", (doc_hash,))
-        cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (3, 'dr_aravind', 'aravind.neuro@meditrack.in', ?, 'DOCTOR', 'Dr. Aravind Krishnan, M.Ch (Neuro)', '+91-98403-44556')", (doc_hash,))
-        cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (4, 'dr_meenakshi', 'meenakshi.obgyn@meditrack.in', ?, 'DOCTOR', 'Dr. Meenakshi Sundaram, MS, DGO', '+91-98404-55667')", (doc_hash,))
+        cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (1, 'admin', 'admin@carehub.in', ?, 'ADMIN', 'Dr. Sundaramurthy Iyer (Medical Director)', '+91-98401-22334')", (pwd_hash,))
+        cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (2, 'dr_kavitha', 'kavitha.cardio@carehub.in', ?, 'DOCTOR', 'Dr. Kavitha Ramanathan, MD, DM (Cardiology)', '+91-98402-33445')", (doc_hash,))
+        cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (3, 'dr_aravind', 'aravind.neuro@carehub.in', ?, 'DOCTOR', 'Dr. Aravind Krishnan, M.Ch (Neuro)', '+91-98403-44556')", (doc_hash,))
+        cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (4, 'dr_meenakshi', 'meenakshi.obgyn@carehub.in', ?, 'DOCTOR', 'Dr. Meenakshi Sundaram, MS, DGO', '+91-98404-55667')", (doc_hash,))
         cursor.execute("INSERT INTO users (id, username, email, password_hash, role, full_name, phone) VALUES (5, 'patient_rajesh', 'rajesh.sharma@gmail.com', ?, 'PATIENT', 'Rajesh Kumar Sharma', '+91-94440-11223')", (pat_hash,))
 
         # Seed Doctors
         doctors_data = [
-            (1, 2, 'TNMC-44829', 'Dr. Kavitha Ramanathan', 'Cardiology', 'Senior Consultant Interventional Cardiologist', 'MBBS, MD, DM (Cardiology), FACC', 16, 850.00, '+91-98402-33445', 'kavitha.cardio@meditrack.in', 'OPD Suite 101', 'Mon,Tue,Wed,Thu,Fri,Sat', '09:00 AM - 01:00 PM, 05:00 PM - 08:30 PM', 4.9, 'Expert in complex coronary angioplasty, heart failure management, and preventive cardiac rehabilitation.'),
-            (2, 3, 'TNMC-38102', 'Dr. Aravind Krishnan', 'Neurology', 'Chief Neurosurgeon & Spine Specialist', 'MBBS, MS (Surgery), M.Ch (Neuro)', 18, 950.00, '+91-98403-44556', 'aravind.neuro@meditrack.in', 'OPD Suite 104', 'Mon,Tue,Thu,Fri', '10:00 AM - 02:00 PM, 06:00 PM - 08:30 PM', 4.9, 'Pioneer in minimally invasive spine surgery, brain tumour resection, and stroke intervention.'),
-            (3, 4, 'TNMC-51928', 'Dr. Meenakshi Sundaram', 'Obstetrics & Gynaecology', 'Senior Consultant Obstetrician & Laparoscopic Surgeon', 'MBBS, MS (OBG), DGO, FICOG', 14, 750.00, '+91-98404-55667', 'meenakshi.obgyn@meditrack.in', 'OPD Suite 202', 'Mon,Wed,Thu,Fri,Sat', '09:30 AM - 01:30 PM, 04:30 PM - 07:30 PM', 4.8, 'High-risk pregnancy care, painless normal deliveries, and advanced gynaecologic laparoscopy.'),
-            (4, None, 'TNMC-29401', 'Dr. Suresh Balaji', 'Orthopaedics', 'Senior Joint Replacement Surgeon', 'MBBS, MS (Ortho), DNB (Ortho), MCh', 20, 800.00, '+91-98405-66778', 'suresh.ortho@meditrack.in', 'OPD Suite 108', 'Mon,Tue,Wed,Fri,Sat', '09:00 AM - 01:00 PM', 4.9, 'Over 5,000 robotic knee and hip replacements and sports ligament reconstructions.'),
-            (5, None, 'TNMC-60293', 'Dr. Preethi Venkatesh', 'Paediatrics', 'Consultant Paediatrician & Neonatologist', 'MBBS, MD (Paediatrics)', 11, 650.00, '+91-98406-77889', 'preethi.paed@meditrack.in', 'OPD Suite 205', 'Mon,Tue,Wed,Thu,Fri,Sat', '10:00 AM - 01:00 PM, 05:00 PM - 08:00 PM', 4.9, 'Paediatric critical care, child development assessments, and child immunization.'),
-            (6, None, 'TNMC-41804', 'Dr. Karthik Narayanan', 'Nephrology & Urology', 'Senior Consultant Nephrologist', 'MBBS, MD (Med), DM (Nephro)', 15, 850.00, '+91-98407-88990', 'karthik.nephro@meditrack.in', 'OPD Suite 112', 'Tue,Thu,Sat', '09:00 AM - 02:00 PM', 4.8, 'Acute & chronic kidney disease, peritoneal dialysis, and live donor renal transplants.'),
-            (7, None, 'TNMC-33719', 'Dr. Anandhi Rajasekar', 'Gastroenterology', 'Consultant Medical Gastroenterologist', 'MBBS, MD, DM (Gastro)', 13, 800.00, '+91-98408-99001', 'anandhi.gastro@meditrack.in', 'OPD Suite 115', 'Mon,Wed,Fri', '10:00 AM - 02:00 PM', 4.8, 'Therapeutic endoscopy, ERCP, fatty liver reversal, and IBD clinical management.'),
-            (8, None, 'TNMC-55912', 'Dr. Vijay Anand', 'Pulmonology', 'Consultant Pulmonologist & Chest Physician', 'MBBS, DTCD, DNB', 12, 700.00, '+91-98409-00112', 'vijay.pulmo@meditrack.in', 'OPD Suite 118', 'Mon,Tue,Thu,Fri,Sat', '09:00 AM - 01:00 PM', 4.7, 'Bronchial asthma, allergic rhinitis, COPD, sleep apnea, and pulmonary fibrosis.')
+            (1, 2, 'TNMC-44829', 'Dr. Kavitha Ramanathan', 'Cardiology', 'Senior Consultant Interventional Cardiologist', 'MBBS, MD, DM (Cardiology), FACC', 16, 850.00, '+91-98402-33445', 'kavitha.cardio@carehub.in', 'OPD Suite 101', 'Mon,Tue,Wed,Thu,Fri,Sat', '09:00 AM - 01:00 PM, 05:00 PM - 08:30 PM', 4.9, 'Expert in complex coronary angioplasty, heart failure management, and preventive cardiac rehabilitation.'),
+            (2, 3, 'TNMC-38102', 'Dr. Aravind Krishnan', 'Neurology', 'Chief Neurosurgeon & Spine Specialist', 'MBBS, MS (Surgery), M.Ch (Neuro)', 18, 950.00, '+91-98403-44556', 'aravind.neuro@carehub.in', 'OPD Suite 104', 'Mon,Tue,Thu,Fri', '10:00 AM - 02:00 PM, 06:00 PM - 08:30 PM', 4.9, 'Pioneer in minimally invasive spine surgery, brain tumour resection, and stroke intervention.'),
+            (3, 4, 'TNMC-51928', 'Dr. Meenakshi Sundaram', 'Obstetrics & Gynaecology', 'Senior Consultant Obstetrician & Laparoscopic Surgeon', 'MBBS, MS (OBG), DGO, FICOG', 14, 750.00, '+91-98404-55667', 'meenakshi.obgyn@carehub.in', 'OPD Suite 202', 'Mon,Wed,Thu,Fri,Sat', '09:30 AM - 01:30 PM, 04:30 PM - 07:30 PM', 4.8, 'High-risk pregnancy care, painless normal deliveries, and advanced gynaecologic laparoscopy.'),
+            (4, None, 'TNMC-29401', 'Dr. Suresh Balaji', 'Orthopaedics', 'Senior Joint Replacement Surgeon', 'MBBS, MS (Ortho), DNB (Ortho), MCh', 20, 800.00, '+91-98405-66778', 'suresh.ortho@carehub.in', 'OPD Suite 108', 'Mon,Tue,Wed,Fri,Sat', '09:00 AM - 01:00 PM', 4.9, 'Over 5,000 robotic knee and hip replacements and sports ligament reconstructions.'),
+            (5, None, 'TNMC-60293', 'Dr. Preethi Venkatesh', 'Paediatrics', 'Consultant Paediatrician & Neonatologist', 'MBBS, MD (Paediatrics)', 11, 650.00, '+91-98406-77889', 'preethi.paed@carehub.in', 'OPD Suite 205', 'Mon,Tue,Wed,Thu,Fri,Sat', '10:00 AM - 01:00 PM, 05:00 PM - 08:00 PM', 4.9, 'Paediatric critical care, child development assessments, and child immunization.'),
+            (6, None, 'TNMC-41804', 'Dr. Karthik Narayanan', 'Nephrology & Urology', 'Senior Consultant Nephrologist', 'MBBS, MD (Med), DM (Nephro)', 15, 850.00, '+91-98407-88990', 'karthik.nephro@carehub.in', 'OPD Suite 112', 'Tue,Thu,Sat', '09:00 AM - 02:00 PM', 4.8, 'Acute & chronic kidney disease, peritoneal dialysis, and live donor renal transplants.'),
+            (7, None, 'TNMC-33719', 'Dr. Anandhi Rajasekar', 'Gastroenterology', 'Consultant Medical Gastroenterologist', 'MBBS, MD, DM (Gastro)', 13, 800.00, '+91-98408-99001', 'anandhi.gastro@carehub.in', 'OPD Suite 115', 'Mon,Wed,Fri', '10:00 AM - 02:00 PM', 4.8, 'Therapeutic endoscopy, ERCP, fatty liver reversal, and IBD clinical management.'),
+            (8, None, 'TNMC-55912', 'Dr. Vijay Anand', 'Pulmonology', 'Consultant Pulmonologist & Chest Physician', 'MBBS, DTCD, DNB', 12, 700.00, '+91-98409-00112', 'vijay.pulmo@carehub.in', 'OPD Suite 118', 'Mon,Tue,Thu,Fri,Sat', '09:00 AM - 01:00 PM', 4.7, 'Bronchial asthma, allergic rhinitis, COPD, sleep apnea, and pulmonary fibrosis.')
         ]
         cursor.executemany("INSERT INTO doctors (id, user_id, doc_reg_no, full_name, department, designation, qualification, experience_years, consultation_fee, phone, email, room_no, available_days, available_time_slots, rating, bio) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", doctors_data)
 
         # Seed Patients
         patients_data = [
-            (1, 5, 'MEDI-2026-0001', 'Rajesh Kumar Sharma', '1982-05-14', 44, 'Male', 'O+', '+91-94440-11223', 'rajesh.sharma@gmail.com', '7891-2345-6789', '42/1, 2nd Main Road, Anna Nagar West', 'Chennai', 'Tamil Nadu', '600040', 'Sunita Sharma (Spouse)', '+91-94440-11224', 'Penicillin, Sulfa drugs', 'Hypertension diagnosed 2021, Type 2 Diabetes Mellitus under Metformin control.'),
-            (2, None, 'MEDI-2026-0002', 'Lakshmi Narayanan', '1968-11-23', 57, 'Female', 'B+', '+91-98840-55667', 'lakshmi.n68@yahoo.com', '4521-8932-1049', '18, G.N. Chetty Road, T. Nagar', 'Chennai', 'Tamil Nadu', '600017', 'Narayanan S. (Son)', '+91-98840-55668', 'No known drug allergies', 'Osteoarthritis bilateral knees, Mild Dyslipidemia.'),
-            (3, None, 'MEDI-2026-0003', 'Mohamed Farooq', '1990-08-19', 35, 'Male', 'A+', '+91-97900-22331', 'farooq.eng@gmail.com', '6734-9012-3456', '88, Triplicane High Road', 'Chennai', 'Tamil Nadu', '600005', 'Ayesha Farooq (Sister)', '+91-97900-22332', 'NSAIDs (Causes Gastric Ulcers)', 'Acid Peptic Disease, Occasional Migraine.'),
-            (4, None, 'MEDI-2026-0004', 'Ananya Deshmukh', '1998-02-10', 28, 'Female', 'AB+', '+91-96001-44552', 'ananya.d@outlook.com', '9012-3456-7890', '12/4, Velachery Bypass Road', 'Chennai', 'Tamil Nadu', '600042', 'Rohan Deshmukh (Husband)', '+91-96001-44553', 'None', 'First Trimester Antenatal Care (Gravida 1, Para 0).'),
-            (5, None, 'MEDI-2026-0005', 'Master Harish Venkatesh', '2019-07-04', 7, 'Male', 'O+', '+91-94450-88991', 'venkatesh.k@gmail.com', '3345-6789-0123', '27, South Mada Street, Mylapore', 'Chennai', 'Tamil Nadu', '600004', 'Venkatesh K (Father)', '+91-94450-88991', 'Dust mite allergy', 'Childhood Allergic Bronchitis, Vaccinations up-to-date.'),
-            (6, None, 'MEDI-2026-0006', 'Sivakumar Ramasamy', '1959-03-12', 67, 'Male', 'A-', '+91-98410-66778', 'siva.ramasamy@gmail.com', '8812-3490-5511', '55, 100 Feet Road, Vadapalani', 'Chennai', 'Tamil Nadu', '600026', 'Meena Sivakumar (Wife)', '+91-98410-66779', 'Aspirin allergy', 'Post Coronary Angioplasty (2023), Chronic Kidney Disease Stage 2.')
+            (1, 5, 'CH-2026-0001', 'Rajesh Kumar Sharma', '1982-05-14', 44, 'Male', 'O+', '+91-94440-11223', 'rajesh.sharma@gmail.com', '7891-2345-6789', '42/1, 2nd Main Road, Anna Nagar West', 'Chennai', 'Tamil Nadu', '600040', 'Sunita Sharma (Spouse)', '+91-94440-11224', 'Penicillin, Sulfa drugs', 'Hypertension diagnosed 2021, Type 2 Diabetes Mellitus under Metformin control.'),
+            (2, None, 'CH-2026-0002', 'Lakshmi Narayanan', '1968-11-23', 57, 'Female', 'B+', '+91-98840-55667', 'lakshmi.n68@yahoo.com', '4521-8932-1049', '18, G.N. Chetty Road, T. Nagar', 'Chennai', 'Tamil Nadu', '600017', 'Narayanan S. (Son)', '+91-98840-55668', 'No known drug allergies', 'Osteoarthritis bilateral knees, Mild Dyslipidemia.'),
+            (3, None, 'CH-2026-0003', 'Mohamed Farooq', '1990-08-19', 35, 'Male', 'A+', '+91-97900-22331', 'farooq.eng@gmail.com', '6734-9012-3456', '88, Triplicane High Road', 'Chennai', 'Tamil Nadu', '600005', 'Ayesha Farooq (Sister)', '+91-97900-22332', 'NSAIDs (Causes Gastric Ulcers)', 'Acid Peptic Disease, Occasional Migraine.'),
+            (4, None, 'CH-2026-0004', 'Ananya Deshmukh', '1998-02-10', 28, 'Female', 'AB+', '+91-96001-44552', 'ananya.d@outlook.com', '9012-3456-7890', '12/4, Velachery Bypass Road', 'Chennai', 'Tamil Nadu', '600042', 'Rohan Deshmukh (Husband)', '+91-96001-44553', 'None', 'First Trimester Antenatal Care (Gravida 1, Para 0).'),
+            (5, None, 'CH-2026-0005', 'Master Harish Venkatesh', '2019-07-04', 7, 'Male', 'O+', '+91-94450-88991', 'venkatesh.k@gmail.com', '3345-6789-0123', '27, South Mada Street, Mylapore', 'Chennai', 'Tamil Nadu', '600004', 'Venkatesh K (Father)', '+91-94450-88991', 'Dust mite allergy', 'Childhood Allergic Bronchitis, Vaccinations up-to-date.'),
+            (6, None, 'CH-2026-0006', 'Sivakumar Ramasamy', '1959-03-12', 67, 'Male', 'A-', '+91-98410-66778', 'siva.ramasamy@gmail.com', '8812-3490-5511', '55, 100 Feet Road, Vadapalani', 'Chennai', 'Tamil Nadu', '600026', 'Meena Sivakumar (Wife)', '+91-98410-66779', 'Aspirin allergy', 'Post Coronary Angioplasty (2023), Chronic Kidney Disease Stage 2.')
         ]
         cursor.executemany("INSERT INTO patients (id, user_id, uhid, full_name, date_of_birth, age, gender, blood_group, phone, email, aadhar_no, address, city, state, pincode, emergency_contact_name, emergency_contact_phone, allergies, medical_history) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", patients_data)
 
@@ -383,8 +383,8 @@ def init_sqlite_db():
 
         # Seed Notifications & Audit Logs
         cursor.execute("INSERT INTO notifications (id, user_id, title, message, notification_type, is_read) VALUES (1, 1, 'Pharmacy Stock Alert', 'Low stock alert: Inj. Tramadol 100mg has reached 120 units (Reorder threshold: 30).', 'Inventory', 0)")
-        cursor.execute("INSERT INTO notifications (id, user_id, title, message, notification_type, is_read) VALUES (2, 2, 'New Patient Appointment', 'Appointment Confirmed: Rajesh Kumar Sharma (UHID: MEDI-2026-0001) for Cardiology OPD at 10:00 AM.', 'Appointment', 1)")
-        cursor.execute("INSERT INTO audit_logs (id, user_id, username, role, action, resource, details, ip_address) VALUES (1, 1, 'admin', 'ADMIN', 'SYSTEM_INITIALIZATION', 'DATABASE', 'MediTrack Database schema bootstrap and initial Indian hospital clinical seed data loaded.', '127.0.0.1')")
+        cursor.execute("INSERT INTO notifications (id, user_id, title, message, notification_type, is_read) VALUES (2, 2, 'New Patient Appointment', 'Appointment Confirmed: Rajesh Kumar Sharma (UHID: CH-2026-0001) for Cardiology OPD at 10:00 AM.', 'Appointment', 1)")
+        cursor.execute("INSERT INTO audit_logs (id, user_id, username, role, action, resource, details, ip_address) VALUES (1, 1, 'admin', 'ADMIN', 'SYSTEM_INITIALIZATION', 'DATABASE', 'CareHub Database schema bootstrap and initial Indian hospital clinical seed data loaded.', '127.0.0.1')")
 
         conn.commit()
     conn.close()
@@ -619,12 +619,12 @@ def api_register_patient():
     # Create user
     cursor = db.execute(
         "INSERT INTO users (username, email, password_hash, role, full_name, phone) VALUES (?, ?, ?, 'PATIENT', ?, ?)",
-        (f"pat_{username}", email or f"pat_{username}@meditrack.local", pwd_hash, full_name, phone)
+        (f"pat_{username}", email or f"pat_{username}@carehub.local", pwd_hash, full_name, phone)
     )
     user_id = cursor.lastrowid
     
     # Generate UHID
-    uhid = f"MEDI-2026-{1000 + user_id}"
+    uhid = f"CH-2026-{1000 + user_id}"
     
     # Calculate age
     try:
@@ -689,7 +689,7 @@ def api_create_patient():
         age = int(data.get("age", 30))
         
     count_row = db.execute("SELECT COUNT(*) as cnt FROM patients").fetchone()
-    uhid = f"MEDI-2026-{str(count_row['cnt'] + 1).zfill(4)}"
+    uhid = f"CH-2026-{str(count_row['cnt'] + 1).zfill(4)}"
     
     cursor = db.execute("""
         INSERT INTO patients (

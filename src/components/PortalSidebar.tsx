@@ -77,7 +77,7 @@ export const PortalSidebar: React.FC<PortalSidebarProps> = ({
           </div>
           <div>
             <h2 className="text-sm font-bold text-slate-900 tracking-tight leading-none">
-              MEDI TRACK
+              CAREHUB
             </h2>
             <span className="text-[10px] font-medium text-slate-500 block mt-0.5">
               {role === 'PATIENT' ? 'Patient Portal' : 'Hospital Intranet'}

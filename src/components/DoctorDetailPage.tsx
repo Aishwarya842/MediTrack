@@ -94,7 +94,7 @@ export const DoctorDetailPage: React.FC<DoctorDetailPageProps> = ({
 
           <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
             <button onClick={onBack} className="hover:text-[#002a54] cursor-pointer">
-              MediConnect
+              CareHub
             </button>
             <span>/</span>
             <button

@@ -325,7 +325,7 @@ export const ReceptionCallDeskModal: React.FC<ReceptionCallDeskModalProps> = ({
                 </span>
               </div>
               <p className="text-xs text-slate-300">
-                Logged in Receptionist: <span className="text-amber-300 font-semibold">{receptionistName}</span> • MediConnect Vadapalani
+                Logged in Receptionist: <span className="text-amber-300 font-semibold">{receptionistName}</span> • CareHub Vadapalani
               </p>
             </div>
           </div>
@@ -399,7 +399,7 @@ export const ReceptionCallDeskModal: React.FC<ReceptionCallDeskModalProps> = ({
               <div className="bg-gradient-to-br from-amber-50/80 via-orange-50/50 to-white p-4 rounded-2xl border border-amber-200 shadow-2xs">
                 <label className="block text-xs sm:text-sm font-extrabold text-amber-950 mb-2 flex items-center gap-2">
                   <i className="fa-solid fa-phone-volume text-amber-600"></i>
-                  Receptionist Inquiry: &quot;Is this the first time you are enquiring / visiting MediConnect Hospital?&quot;
+                  Receptionist Inquiry: &quot;Is this the first time you are enquiring / visiting CareHub Hospital?&quot;
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   <button
@@ -971,7 +971,7 @@ export const ReceptionCallDeskModal: React.FC<ReceptionCallDeskModalProps> = ({
                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 text-[11.5px] border border-white/20 font-mono text-emerald-50 leading-relaxed">
                   💬 <strong>SMS / WhatsApp Delivered to {callerPhone}:</strong>
                   <br />
-                  &quot;Dear {confirmedAppt.patient_name}, your OPD Registration at MediConnect Hospital is CONFIRMED.
+                  &quot;Dear {confirmedAppt.patient_name}, your OPD Registration at CareHub Hospital is CONFIRMED.
                   <br />
                   <strong>Reg No:</strong> {confirmedAppt.opd_reg_no || confirmedAppt.appointment_no} | <strong>Token:</strong> {confirmedAppt.appointment_no}
                   <br />
@@ -1024,11 +1024,11 @@ export const ReceptionCallDeskModal: React.FC<ReceptionCallDeskModalProps> = ({
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-[#004b91] text-white flex flex-col items-center justify-center font-black p-1 leading-none shadow-sm print:bg-[#004b91]">
                       <span className="text-base">+</span>
-                      <span className="text-[7.5px] tracking-tighter uppercase">MEDICONNECT</span>
+                      <span className="text-[7.5px] tracking-tighter uppercase">CAREHUB</span>
                     </div>
                     <div>
                       <h1 className="text-xl font-black tracking-tight text-[#004b91] uppercase">
-                        MEDICONNECT MULTISPECIALITY HOSPITAL
+                        CAREHUB MULTISPECIALITY HOSPITAL
                       </h1>
                       <p className="text-[10.5px] font-bold text-slate-600">
                         100 Feet Bypass Road, Vadapalani, Chennai – 600026 • 24x7 Helpline: 1066 / +91 44 2483 3400
@@ -1158,7 +1158,7 @@ export const ReceptionCallDeskModal: React.FC<ReceptionCallDeskModalProps> = ({
                       [HOSPITAL SEAL]
                     </div>
                     <span className="text-[11px] font-bold text-slate-900 block">Authorized Receptionist</span>
-                    <span className="text-[10px] text-slate-500">MediConnect Vadapalani</span>
+                    <span className="text-[10px] text-slate-500">CareHub Vadapalani</span>
                   </div>
                 </div>
               </div>

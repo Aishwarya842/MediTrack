@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * MEDI TRACK – Integrated Patient Care Management System
+ * CAREHUB – Integrated Patient Care Management System
  * Core UI Controller, Calculators & Application Engine
  * =============================================================================
  */
@@ -24,7 +24,7 @@ const App = {
     // Top emergency helpline click handler
     document.querySelectorAll("[data-action='call-emergency']").forEach(el => {
       el.addEventListener("click", () => {
-        alert("MediTrack 24x7 Emergency Ambulance: 1066 / +91 44 2483 9999\nImmediate emergency response team notified.");
+        alert("CareHub 24x7 Emergency Ambulance: 1066 / +91 44 2483 9999\nImmediate emergency response team notified.");
       });
     });
 
